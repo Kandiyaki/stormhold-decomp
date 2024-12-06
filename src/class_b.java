@@ -10,13 +10,6 @@ import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Graphics;
 
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
-package ;
-
 import java.io.DataInputStream;
 
 public class class_b {
@@ -54,7 +47,7 @@ public class class_b {
 
     static void method_a1() {
         try {
-            DataInputStream var0 = class_f.method_a1("/spellsin.dat");
+            DataInputStream var0 = DataTools.method_a1("/spellsin.dat");
             field_i = var0.readShort();
             field_b = new class_b[field_i];
 

@@ -140,7 +140,7 @@ public class class_i {
 
             var6.field_o = (byte)var10;
             var6.field_m = (byte)var11;
-            this.field_w[var6.field_o][var6.field_m] = class_f.method_b2((byte)2, this.field_w[var6.field_o][var6.field_m]);
+            this.field_w[var6.field_o][var6.field_m] = DataTools.setManyBits((byte)2, this.field_w[var6.field_o][var6.field_m]);
             var6.method_d();
         }
 
@@ -166,7 +166,7 @@ public class class_i {
                     var2.field_o = (byte)var7;
                     var2.field_m = (byte)var8;
                     var2.method_d();
-                    this.field_w[var2.field_o][var2.field_m] = class_f.method_b2((byte)2, this.field_w[var2.field_o][var2.field_m]);
+                    this.field_w[var2.field_o][var2.field_m] = DataTools.setManyBits((byte)2, this.field_w[var2.field_o][var2.field_m]);
                     break;
                 }
             }
@@ -195,7 +195,7 @@ public class class_i {
 
         for(int var5 = 0; var5 < var2; ++var5) {
             var3[var5] = var5;
-            int var6 = class_f.method_a3(this.field_e, 1000);
+            int var6 = DataTools.method_a3(this.field_e, 1000);
             var4[var5] = var6;
         }
 
@@ -275,7 +275,7 @@ public class class_i {
     void method_a3(byte[] var1) {
         byte var2 = var1[0];
         byte var3 = var1[1];
-        ESGame.field_S[this.field_o - 1].put(class_f.method_b1(var2, var3), var1);
+        ESGame.field_S[this.field_o - 1].put(DataTools.commaBetweenInts(var2, var3), var1);
         byte[] var10000 = this.field_w[var2];
         var10000[var3] = (byte)(var10000[var3] | 16);
     }
@@ -591,22 +591,22 @@ public class class_i {
 
     boolean method_d2(int var1, int var2) {
         byte var3 = this.field_w[var1][var2];
-        if (class_f.method_a8((byte)1, var3)) {
+        if (DataTools.doBytesShareBits((byte)1, var3)) {
             return false;
-        } else if (class_f.method_a8((byte)2, var3)) {
+        } else if (DataTools.doBytesShareBits((byte)2, var3)) {
             return false;
-        } else if (class_f.method_a8((byte)8, var3)) {
+        } else if (DataTools.doBytesShareBits((byte)8, var3)) {
             return false;
         } else {
-            return !class_f.method_a8((byte)32, var3);
+            return !DataTools.doBytesShareBits((byte)32, var3);
         }
     }
 
     class_d method_c3(int var1, int var2) {
         byte var3 = this.field_w[var1][var2];
-        if (class_f.method_a8((byte)1, var3)) {
+        if (DataTools.doBytesShareBits((byte)1, var3)) {
             return null;
-        } else if (!class_f.method_a8((byte)2, var3)) {
+        } else if (!DataTools.doBytesShareBits((byte)2, var3)) {
             return null;
         } else {
             Enumeration var4 = ESGame.field_G[this.field_o - 1].elements();
@@ -627,10 +627,10 @@ public class class_i {
         byte var2 = var1[0];
         byte var3 = var1[1];
         byte var4 = this.field_w[var2][var3];
-        if (!class_f.method_a8((byte)1, var4)) {
-            if (class_f.method_a8((byte)16, var4)) {
-                ESGame.field_S[this.field_o - 1].remove(class_f.method_b1(var2, var3));
-                this.field_w[var2][var3] = class_f.method_c1((byte)16, this.field_w[var2][var3]);
+        if (!DataTools.doBytesShareBits((byte)1, var4)) {
+            if (DataTools.doBytesShareBits((byte)16, var4)) {
+                ESGame.field_S[this.field_o - 1].remove(DataTools.commaBetweenInts(var2, var3));
+                this.field_w[var2][var3] = DataTools.clearManyBits((byte)16, this.field_w[var2][var3]);
             }
         }
     }
@@ -639,11 +639,11 @@ public class class_i {
         byte var2 = var1[0];
         byte var3 = var1[1];
         byte var4 = this.field_w[var2][var3];
-        if (!class_f.method_a8((byte)1, var4)) {
-            if (class_f.method_a8((byte)4, var4)) {
+        if (!DataTools.doBytesShareBits((byte)1, var4)) {
+            if (DataTools.doBytesShareBits((byte)4, var4)) {
                 ESGame.field_au[this.field_o - 1].removeElement(var1);
                 if (this.method_f1(var2, var3) == 0) {
-                    this.field_w[var2][var3] = class_f.method_c1((byte)4, this.field_w[var2][var3]);
+                    this.field_w[var2][var3] = DataTools.clearManyBits((byte)4, this.field_w[var2][var3]);
                 }
 
             }
@@ -1027,7 +1027,7 @@ public class class_i {
     }
 
     static void method_g1() throws Exception {
-        DataInputStream var0 = class_f.method_a1("/dungnamesin.dat");
+        DataInputStream var0 = DataTools.method_a1("/dungnamesin.dat");
         field_c = new String[37][2];
 
         for(int var1 = 0; var1 < 37; ++var1) {
@@ -1047,8 +1047,8 @@ public class class_i {
         for(int var7 = var3; var7 <= var4; ++var7) {
             for(int var8 = var5; var8 <= var6; ++var8) {
                 byte var9 = this.field_w[var7][var8];
-                if (!class_f.method_a8((byte)1, var9)) {
-                    this.field_w[var7][var8] = class_f.method_c1((byte)2, var9);
+                if (!DataTools.doBytesShareBits((byte)1, var9)) {
+                    this.field_w[var7][var8] = DataTools.clearManyBits((byte)2, var9);
                 }
             }
         }

@@ -37,7 +37,7 @@ public class class_k {
 
     static void method_a(String var0) {
         try {
-            DataInputStream var1 = class_f.method_a1(var0);
+            DataInputStream var1 = DataTools.method_a1(var0);
             byte var2 = 8;
             field_k = new String[var2][];
 
@@ -79,7 +79,7 @@ public class class_k {
         byte var1 = field_i[6];
         field_d = false;
         byte var2 = ESGame.field_u[1].field_w[var0][var1];
-        ESGame.field_u[0].field_w[var0][var1] = class_f.method_c1((byte)32, var2);
+        ESGame.field_u[0].field_w[var0][var1] = DataTools.clearManyBits((byte)32, var2);
     }
 
     static void method_a3(int var0, int var1, DataInputStream var2) throws Exception {
@@ -165,13 +165,13 @@ public class class_k {
         if (var2 == 0) {
             var0.field_R[var1][0] = 1;
             String var6 = field_k[7][1];
-            var6 = class_f.replacePartOfString(var6, "<TAG>", class_j.field_E[var1]);
+            var6 = DataTools.replacePartOfString(var6, "<TAG>", class_j.field_E[var1]);
             return var6;
         } else {
             var0.field_R[var1][0] = (short)(var2 + 1);
             String var3 = field_k[7][2];
             String[] var4 = new String[]{class_j.field_E[var1], String.valueOf(var2), String.valueOf(var2 + 1)};
-            var3 = class_f.replacePartOfManyStrings(var3, "<TAG>", var4);
+            var3 = DataTools.replacePartOfManyStrings(var3, "<TAG>", var4);
             return var3;
         }
     }
@@ -294,7 +294,7 @@ public class class_k {
                     if (var2 == 6) {
                         field_b[var1] = false;
                         class_i var7 = ESGame.field_u[0];
-                        var7.field_w[field_j[var1]][field_i[var1]] = class_f.method_c1((byte)32, var7.field_w[field_j[var1]][field_i[var1]]);
+                        var7.field_w[field_j[var1]][field_i[var1]] = DataTools.clearManyBits((byte)32, var7.field_w[field_j[var1]][field_i[var1]]);
                         return field_k[var1][19];
                     }
 

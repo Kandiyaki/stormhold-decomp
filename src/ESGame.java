@@ -26,9 +26,9 @@ import javax.microedition.lcdui.StringItem;
 import javax.microedition.lcdui.TextField;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.rms.RecordStore;
-import ngame.midlet.class_a;
+import ngame.midlet.javaMicroMIDlet;
 
-public class ESGame extends class_a implements Runnable, CommandListener {
+public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener {
     private static int field_aT;
     static byte[] field_at = new byte[2000];
     static String field_aN = null;
@@ -56,54 +56,54 @@ public class ESGame extends class_a implements Runnable, CommandListener {
     private Form field_W;
     static Image field_O = null;
     static Image field_aU = null;
-    private runImageLoader field_aR;
-    private runImageLoader field_aZ;
-    private static runImageLoader field_al;
-    private static runImageLoader field_aQ;
-    private runImageLoader field_ay;
-    private runImageLoader field_U;
-    private runImageLoader field_az;
-    private runImageLoader field_y;
-    private runImageLoader field_h;
-    private runImageLoader field_aE;
-    private runImageLoader field_M;
-    private runImageLoader field_ba;
-    private runImageLoader field_f;
-    runImageLoader field_ab;
-    runImageLoader field_aq;
-    runImageLoader field_m;
-    runImageLoader[] field_R;
-    runImageLoader field_Q;
-    runImageLoader field_ap;
-    runImageLoader field_z;
-    runImageLoader field_ae;
-    runImageLoader field_I;
-    runImageLoader field_X;
-    runImageLoader field_V;
-    runImageLoader field_aJ;
-    runImageLoader field_an;
-    runImageLoader field_aw;
-    runImageLoader field_aI;
-    runImageLoader field_aL;
-    runImageLoader field_H;
-    runImageLoader field_K;
-    runImageLoader field_s;
-    runImageLoader field_t;
-    runImageLoader field_B;
-    runImageLoader field_aY;
-    runImageLoader field_aB;
-    runImageLoader field_L;
-    runImageLoader field_N;
-    runImageLoader field_v;
-    runImageLoader field_q;
-    runImageLoader field_ag;
-    runImageLoader field_aV;
-    runImageLoader field_aP;
-    runImageLoader field_C;
-    runImageLoader field_D;
-    private runImageLoader field_F;
-    runImageLoader field_aj;
-    runImageLoader field_A;
+    private RunImageLoader field_aR;
+    private RunImageLoader field_aZ;
+    private static RunImageLoader field_al;
+    private static RunImageLoader field_aQ;
+    private RunImageLoader field_ay;
+    private RunImageLoader field_U;
+    private RunImageLoader field_az;
+    private RunImageLoader field_y;
+    private RunImageLoader field_h;
+    private RunImageLoader field_aE;
+    private RunImageLoader field_M;
+    private RunImageLoader field_ba;
+    private RunImageLoader field_f;
+    RunImageLoader field_ab;
+    RunImageLoader field_aq;
+    RunImageLoader field_m;
+    RunImageLoader[] field_R;
+    RunImageLoader field_Q;
+    RunImageLoader field_ap;
+    RunImageLoader field_z;
+    RunImageLoader field_ae;
+    RunImageLoader field_I;
+    RunImageLoader field_X;
+    RunImageLoader field_V;
+    RunImageLoader field_aJ;
+    RunImageLoader field_an;
+    RunImageLoader field_aw;
+    RunImageLoader field_aI;
+    RunImageLoader field_aL;
+    RunImageLoader field_H;
+    RunImageLoader field_K;
+    RunImageLoader field_s;
+    RunImageLoader field_t;
+    RunImageLoader field_B;
+    RunImageLoader field_aY;
+    RunImageLoader field_aB;
+    RunImageLoader field_L;
+    RunImageLoader field_N;
+    RunImageLoader field_v;
+    RunImageLoader field_q;
+    RunImageLoader field_ag;
+    RunImageLoader field_aV;
+    RunImageLoader field_aP;
+    RunImageLoader field_C;
+    RunImageLoader field_D;
+    private RunImageLoader field_F;
+    RunImageLoader field_aj;
+    RunImageLoader field_A;
     private class_e field_av;
     private Form field_aD;
     private static String[] field_o = new String[12];
@@ -120,7 +120,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
     static Hashtable[] field_G;
     static Hashtable[] field_S;
     static Vector[] field_au;
-    static runImageLoader field_ax = null;
+    static RunImageLoader field_ax = null;
     int field_Y;
     int field_g;
     static boolean field_aG;
@@ -152,9 +152,10 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         field_aT = 1;
     }
 
+    //startapp, overrides the MIDlet
     public void method_m() {
         if (this.field_d == null) {
-            method_c3("Very start of startapp");
+            debugPrint("Very start of startapp");
             this.field_d = Display.getDisplay(this);
             this.field_Y = -1;
             this.field_g = -1;
@@ -163,9 +164,9 @@ public class ESGame extends class_a implements Runnable, CommandListener {
             this.field_aW = false;
             this.field_a = 0;
             this.field_am = false;
-            method_c3("Before error form");
+            debugPrint("Before error form");
             this.method_y();
-            method_c3("After error form");
+            debugPrint("After error form");
             this.method_H();
             field_aT = 2;
         }
@@ -179,7 +180,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
             Thread var1 = new Thread(this);
             field_O = this.makeUnmovingSprite("/splashtop.png");
             field_aU = this.makeUnmovingSprite("/splashbot.png");
-            this.field_ay = new runImageLoader(this, 2, 1);
+            this.field_ay = new RunImageLoader(this, 2, 1);
             this.field_ay.method_e();
             this.field_ay.field_c = this.field_w;
             field_J = 2;
@@ -274,7 +275,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         class_k.method_e();
         this.field_ay.field_m = 5;
         this.method_a3("Item load", true);
-        .class_a.method_e1();
+        .javaMicroMIDlet.method_e1();
         this.method_a3("Spell load", true);
         class_b.method_a1();
         this.method_a3("Monster load", true);
@@ -287,29 +288,29 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         field_u = null;
         System.gc();
         System.out.println(" >>>> CREATING CAMP DUNGEON <<<<<<");
-        method_c3("    Before dungeon vector");
+        debugPrint("    Before dungeon vector");
         field_u = new class_i[37];
-        method_c3("    After dungeon vector");
+        debugPrint("    After dungeon vector");
         this.field_ay.field_m = 62;
         field_u[0] = new class_i((byte)1, field_ai[0], field_af, field_aO, field_i);
-        method_c3("    After camp dungeon before GC");
+        debugPrint("    After camp dungeon before GC");
         System.gc();
-        method_c3("    After camp dungeon after GC");
+        debugPrint("    After camp dungeon after GC");
 
         for(int var1 = 1; var1 < 37; ++var1) {
             field_u[var1] = new class_i((byte)(var1 + 1), field_ai[var1]);
-            method_c3("Before dungeon " + var1);
+            debugPrint("Before dungeon " + var1);
             field_u[var1].method_b1();
-            method_c3("    After dungeon " + var1 + " before GC");
+            debugPrint("    After dungeon " + var1 + " before GC");
             System.gc();
-            method_c3("    After dungeon " + var1);
+            debugPrint("    After dungeon " + var1);
             ++this.field_ay.field_m;
         }
 
         System.out.println(" After creating dungeons");
-        method_c3(" After creating dungeons, before GC");
+        debugPrint(" After creating dungeons, before GC");
         System.gc();
-        method_c3(" After creating dungeons");
+        debugPrint(" After creating dungeons");
     }
 
     private void createNewGame() {
@@ -333,16 +334,16 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         System.out.println("Starting allocateAllUIs");
         this.method_a3("Start of allocateAllUIs", true);
         System.gc();
-        method_c3("Start of allocateAllUIs");
+        debugPrint("Start of allocateAllUIs");
         this.method_h();
         this.field_ay.field_m = 20;
         this.method_j1();
         this.field_av = new class_e(this);
-        method_c3("Before floors and walls");
+        debugPrint("Before floors and walls");
         class_e.field_h = this.makeUnmovingSprite("floor3.png");
-        method_c3("after floors");
+        debugPrint("after floors");
         class_e.field_Y = this.makeUnmovingSprite("newwallsnok.png");
-        method_c3("After walls");
+        debugPrint("After walls");
         this.method_a3("After floor and wall images", true);
         class_e.field_q = new class_g[33];
 
@@ -354,28 +355,28 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         this.field_a = 1;
         this.field_ak = true;
         this.method_a3("before runImageLoader", true);
-        this.field_ab = new runImageLoader(this, 11, 304);
+        this.field_ab = new RunImageLoader(this, 11, 304);
         this.field_ab.method_o();
-        method_c3("Before load camp monster images ");
+        debugPrint("Before load camp monster images ");
         this.method_p1();
         this.method_a3("After monster images", true);
-        method_c3("After monster images ");
+        debugPrint("After monster images ");
         this.method_j1();
         class_e.field_ar = new class_g[3];
-        class_e.field_ar[0] = class_g.makeMovingSprite("baglarge.cus");
-        class_e.field_ar[1] = class_g.makeMovingSprite("bagmid.cus");
-        class_e.field_ar[2] = class_g.makeMovingSprite("bagsmall.cus");
-        method_c3("After bag images ");
+        class_e.field_ar[0] = class_g.makeMultiSprite("baglarge.cus");
+        class_e.field_ar[1] = class_g.makeMultiSprite("bagmid.cus");
+        class_e.field_ar[2] = class_g.makeMultiSprite("bagsmall.cus");
+        debugPrint("After bag images ");
         System.gc();
         this.method_a3("After bag images ", true);
         class_e.field_u = new class_g[3];
-        class_e.field_u[0] = class_g.makeMovingSprite("crystalnear.cus");
-        class_e.field_u[1] = class_g.makeMovingSprite("crystalmid.cus");
-        class_e.field_u[2] = class_g.makeMovingSprite("crystalfar.cus");
-        method_c3("After crystal images ");
+        class_e.field_u[0] = class_g.makeMultiSprite("crystalnear.cus");
+        class_e.field_u[1] = class_g.makeMultiSprite("crystalmid.cus");
+        class_e.field_u[2] = class_g.makeMultiSprite("crystalfar.cus");
+        debugPrint("After crystal images ");
         this.method_a3("After crystal images ", true);
         this.method_j1();
-        method_c3("After oracle images ");
+        debugPrint("After oracle images ");
         this.method_a3("After oracle images ", true);
         class_e.field_aE = new Image[3];
 
@@ -387,12 +388,12 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         class_e.field_aE[1] = this.makeUnmovingSprite("monsterspell.png");
         class_e.field_aE[2] = this.makeUnmovingSprite("selfspell.png");
         System.gc();
-        method_c3("After spell images ");
+        debugPrint("After spell images ");
         this.method_a3("After effects images ", true);
         class_e.field_ab = new class_g[3];
-        class_e.field_ab[0] = class_g.makeMovingSprite("chestnearclosed.cus");
-        class_e.field_ab[1] = class_g.makeMovingSprite("chestmidclosed.cus");
-        class_e.field_ab[2] = class_g.makeMovingSprite("chestfarclosed.cus");
+        class_e.field_ab[0] = class_g.makeMultiSprite("chestnearclosed.cus");
+        class_e.field_ab[1] = class_g.makeMultiSprite("chestmidclosed.cus");
+        class_e.field_ab[2] = class_g.makeMultiSprite("chestfarclosed.cus");
         this.method_a3("After chest images ", true);
         this.method_j1();
         class_e.field_y = new Image[6];
@@ -411,63 +412,63 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         this.method_a3("After HELP TITLES", true);
         field_n = this.makeCredits();
         this.method_a3("After CREDITS", true);
-        this.field_U = new runImageLoader(this, 3, 2);
+        this.field_U = new RunImageLoader(this, 3, 2);
         String[] var3 = new String[]{"New Game", "Continue Game", "Help", "Credits", "Exit"};
         Object var4 = null;
         this.field_U.method_a1("Main Menu", var3, (Vector)var4, false);
-        this.field_az = new runImageLoader(this, 5, 3);
+        this.field_az = new RunImageLoader(this, 5, 3);
         String[] var5 = class_j.field_K;
         this.field_az.method_a4("New Game", "Select a Class:", var5, (Vector)null);
         this.field_ay.field_m = 35;
         this.method_a3("After newGameUI", true);
-        this.field_y = new runImageLoader(this, 6, 4);
+        this.field_y = new RunImageLoader(this, 6, 4);
         String[] var6 = new String[]{"See Class Info", "Create Character"};
         Object var7 = null;
         this.field_y.method_a6("Character", "You selected:", "", var6, (Vector)var7);
-        this.field_h = new runImageLoader(this, 4, 5);
+        this.field_h = new RunImageLoader(this, 4, 5);
         this.field_h.method_a2("Info", "");
-        this.field_aE = new runImageLoader(this, 4, 6);
+        this.field_aE = new RunImageLoader(this, 4, 6);
         this.field_aE.method_a2("New Character", "Character Created!\n \nPress 'select' to enter a name");
-        this.field_aE.method_b3(runImageLoader.field_I);
-        this.field_aE.method_a18(runImageLoader.field_u);
-        this.field_aE.method_a18(runImageLoader.field_P);
-        this.field_M = new runImageLoader(this, 4, 7);
+        this.field_aE.removeCommand(RunImageLoader.field_I);
+        this.field_aE.addCommand(RunImageLoader.field_u);
+        this.field_aE.addCommand(RunImageLoader.field_P);
+        this.field_M = new RunImageLoader(this, 4, 7);
         this.field_M.method_a2("Welcome", "Welcome to The Elder Scrolls Travels!");
-        method_c3("After all the welcome screens");
+        debugPrint("After all the welcome screens");
         this.method_a3("After all the welcome screens", true);
-        this.field_A = new runImageLoader(this, 4, 499);
+        this.field_A = new RunImageLoader(this, 4, 499);
         this.field_A.method_a2("Save Error", "There was an error in saving your character record. Your previous character record is still saved. Try turning your phone off then on again to clear the memory.");
-        method_c3("Before NPCHelloUI");
-        this.field_aq = new runImageLoader(this, 4, 8);
+        debugPrint("Before NPCHelloUI");
+        this.field_aq = new RunImageLoader(this, 4, 8);
         this.field_aq.method_a3("NPC name here", "NPC text here", true);
-        this.field_m = new runImageLoader(this, 4, 360);
+        this.field_m = new RunImageLoader(this, 4, 360);
         this.field_m.method_a3("Rumors", "Rumors text here", true);
-        method_c3("After NPCHelloUI");
+        debugPrint("After NPCHelloUI");
         this.method_a3("After helloUI", true);
-        this.field_R = new runImageLoader[6];
+        this.field_R = new RunImageLoader[6];
 
         for(int var8 = 0; var8 < 4; ++var8) {
-            this.field_R[var8] = new runImageLoader(this, 5, 9 + var8);
+            this.field_R[var8] = new RunImageLoader(this, 5, 9 + var8);
             String[] var9 = new String[]{"Train", "Give", "Befriend", "Threaten", "Kill"};
             this.field_R[var8].method_a4("Name", "Aid: <TAG>", var9, (Vector)null);
             this.field_R[var8].field_s = this.field_av;
         }
 
-        this.field_R[4] = new runImageLoader(this, 5, 13);
+        this.field_R[4] = new RunImageLoader(this, 5, 13);
         String[] var14 = new String[]{"Give Item", "Take Crystal"};
         this.field_R[4].method_a4("Beneca", "Aid: <TAG>", var14, (Vector)null);
         this.field_R[4].field_s = this.field_av;
-        this.field_R[5] = new runImageLoader(this, 5, 14);
+        this.field_R[5] = new RunImageLoader(this, 5, 14);
         String[] var10 = new String[]{"Rumors", "Give Crystal", "Enchant", "Bless", "Cure", "Warp", "Recovery"};
         this.field_R[5].method_a4("Helga", "Aid: <TAG>", var10, (Vector)null);
         this.field_R[5].field_s = this.field_av;
         this.method_a3("After choicesUI", true);
-        this.field_ap = new runImageLoader(this, 4, 23);
+        this.field_ap = new RunImageLoader(this, 4, 23);
         this.field_ap.method_a3("Oracle", "NPC text here", true);
-        this.field_t = new runImageLoader(this, 3, 31);
+        this.field_t = new RunImageLoader(this, 3, 31);
         String[] var11 = new String[]{"Stats", "Inventory", "Skills", "Spells", "Save Game", "Load Game", "Help", "Quit Game"};
         this.field_t.method_a1("Options", var11, (Vector)null, false);
-        this.field_t.method_a18(runImageLoader.field_z);
+        this.field_t.addCommand(RunImageLoader.field_z);
         this.method_a3("After OptionsUI", true);
         this.field_ay.field_m = 42;
         this.field_aD = new Form("Enter name");
@@ -475,13 +476,13 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         this.field_aD.append(var12);
         TextField var13 = new TextField((String)null, (String)null, 10, 0);
         this.field_aD.append(var13);
-        this.field_aD.addCommand(runImageLoader.field_I);
-        this.field_aD.addCommand(runImageLoader.field_P);
+        this.field_aD.addCommand(RunImageLoader.field_I);
+        this.field_aD.addCommand(RunImageLoader.field_P);
         this.field_aD.setCommandListener(this);
-        this.field_ba = new runImageLoader(this, 4, 305);
+        this.field_ba = new RunImageLoader(this, 4, 305);
         this.field_ba.method_a2("Unavailable", "No game is available for loading. Press OK to return to main menu.");
-        this.field_ba.method_a18(runImageLoader.field_I);
-        this.field_ba.method_a19(this);
+        this.field_ba.addCommand(RunImageLoader.field_I);
+        this.field_ba.setCommandListener(this);
         this.field_ba.field_s = this.field_U;
         this.method_a3("After NoSavedGameUI", true);
         this.field_ay.field_c = this.field_U;
@@ -490,25 +491,25 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         this.field_h.field_s = this.field_y;
         this.field_h.field_c = this.field_y;
         this.field_aE.field_s = this.field_y;
-        this.field_f = new runImageLoader(this, 4, 399);
+        this.field_f = new RunImageLoader(this, 4, 399);
         this.field_f.method_n();
         this.field_ay.field_m = 55;
-        method_c3("End of loading UI and images");
+        debugPrint("End of loading UI and images");
         this.method_a3("End of allocateAllUIs", true);
     }
 
-    private runImageLoader method_a(int var1) {
+    private RunImageLoader method_a(int var1) {
         System.gc();
-        runImageLoader var2 = new runImageLoader(this, 5, 22);
+        RunImageLoader var2 = new RunImageLoader(this, 5, 22);
         var2.field_N = var1;
         String[] var3 = new String[this.field_k.field_p];
 
         for(int var4 = 0; var4 < this.field_k.field_p; ++var4) {
             int var5 = Math.abs(this.field_k.field_H[var4]);
             if (this.field_k.method_C(var4)) {
-                var3[var4] = "E:" + .class_a.method_d(var5);
+                var3[var4] = "E:" + .javaMicroMIDlet.method_d(var5);
             } else {
-                var3[var4] = .class_a.method_d(var5);
+                var3[var4] = .javaMicroMIDlet.method_d(var5);
             }
         }
 
@@ -517,10 +518,10 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         return var2;
     }
 
-    private runImageLoader method_b(int var1) {
+    private RunImageLoader method_b(int var1) {
         System.gc();
-        method_c3("Start of newTrainWhat");
-        runImageLoader var2 = new runImageLoader(this, 5, 20);
+        debugPrint("Start of newTrainWhat");
+        RunImageLoader var2 = new RunImageLoader(this, 5, 20);
         var2.field_N = var1;
         String[] var3 = new String[3];
         int var4 = 0;
@@ -529,7 +530,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
             int var6 = this.field_k.method_b3(var5, false);
             String var7 = class_j.field_E[var5] + " (<TAG>)";
             if (class_k.method_c1(var1, var5)) {
-                var3[var4++] = class_f.replacePOSWithInt(var7, "<TAG>", var6);
+                var3[var4++] = DataTools.replacePOSWithInt(var7, "<TAG>", var6);
             }
         }
 
@@ -538,27 +539,27 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         return var2;
     }
 
-    private runImageLoader method_p(int var1) {
+    private RunImageLoader method_p(int var1) {
         System.gc();
-        method_c3("Start of newTakeWhat");
-        runImageLoader var2 = new runImageLoader(this, 5, 27);
+        debugPrint("Start of newTakeWhat");
+        RunImageLoader var2 = new RunImageLoader(this, 5, 27);
         var2.field_N = var1;
-        String[] var3 = .class_a.method_b1();
+        String[] var3 = .javaMicroMIDlet.method_b1();
         var2.method_a5(class_k.field_s[var1], "Take What?", var3, (Vector)null, true);
         var2.field_s = null;
         return var2;
     }
 
-    private runImageLoader method_c(int var1) {
+    private RunImageLoader method_c(int var1) {
         System.gc();
-        method_c3("Start of newEnchantWhat");
-        runImageLoader var2 = new runImageLoader(this, 5, 350);
+        debugPrint("Start of newEnchantWhat");
+        RunImageLoader var2 = new RunImageLoader(this, 5, 350);
         var2.field_N = var1;
         String[] var3 = new String[this.field_k.field_p];
 
         for(int var4 = 0; var4 < this.field_k.field_p; ++var4) {
             int var5 = Math.abs(this.field_k.field_H[var4]);
-            var3[var4] = .class_a.method_d(var5);
+            var3[var4] = .javaMicroMIDlet.method_d(var5);
         }
 
         var2.method_a5(class_k.field_s[var1], "Enchant What?", var3, (Vector)null, true);
@@ -566,25 +567,25 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         return var2;
     }
 
-    private runImageLoader method_D() {
-        runImageLoader var1 = new runImageLoader(this, 4, 32);
+    private RunImageLoader method_D() {
+        RunImageLoader var1 = new RunImageLoader(this, 4, 32);
         var1.method_a2("Stats", this.field_av.field_ax.method_j1());
         return var1;
     }
 
-    private runImageLoader method_c1() {
+    private RunImageLoader method_c1() {
         System.gc();
-        runImageLoader var1 = new runImageLoader(this, 5, 33);
+        RunImageLoader var1 = new RunImageLoader(this, 5, 33);
         String[] var2 = new String[this.field_k.field_p];
 
         for(int var3 = 0; var3 < this.field_k.field_p; ++var3) {
             byte var4 = this.field_k.field_H[var3];
             System.out.println("itemid is " + var4);
             if (var4 < 0) {
-                var2[var3] = "E: " + .class_a.method_d(Math.abs(var4));
+                var2[var3] = "E: " + .javaMicroMIDlet.method_d(Math.abs(var4));
                 System.out.println("item is " + var2[var3]);
             } else {
-                var2[var3] = .class_a.method_d(var4);
+                var2[var3] = .javaMicroMIDlet.method_d(var4);
                 System.out.println("item is " + var2[var3]);
             }
         }
@@ -594,35 +595,35 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         return var1;
     }
 
-    private runImageLoader method_c2(runImageLoader var1) {
+    private RunImageLoader method_c2(RunImageLoader var1) {
         System.gc();
         //quit menu
-        runImageLoader var2 = new runImageLoader(this, 5, 202);
+        RunImageLoader var2 = new RunImageLoader(this, 5, 202);
         String[] var3 = new String[]{"Yes", "No"};
         var2.method_a5("Quit?", "Are you sure?", var3, (Vector)null, true);
         var2.field_s = var1;
         return var2;
     }
 
-    private runImageLoader method_b1(runImageLoader var1) {
+    private RunImageLoader method_b1(RunImageLoader var1) {
         System.gc();
-        runImageLoader var2 = new runImageLoader(this, 3, 203);
+        RunImageLoader var2 = new RunImageLoader(this, 3, 203);
         var2.method_a("Help", field_as, (Vector)null);
         var2.field_s = var1;
         return var2;
     }
 
-    private runImageLoader method_g(int var1) {
+    private RunImageLoader method_g(int var1) {
         System.gc();
-        runImageLoader var2 = new runImageLoader(this, 4, 206);
+        RunImageLoader var2 = new RunImageLoader(this, 4, 206);
         var2.method_a3(field_as[var1], field_o[var1], true);
         var2.field_s = this.field_D;
         return var2;
     }
 
-    private runImageLoader method_a1(runImageLoader var1) {
+    private RunImageLoader method_a1(RunImageLoader var1) {
         System.gc();
-        runImageLoader var2 = new runImageLoader(this, 4, 204);
+        RunImageLoader var2 = new RunImageLoader(this, 4, 204);
         var2.method_a3("Credits", field_n, true);
         var2.field_s = var1;
         return var2;
@@ -641,19 +642,19 @@ public class ESGame extends class_a implements Runnable, CommandListener {
     //i think it's for interfacing with java micro? might need to replace for PC refactor
     public void commandAction(Command var1, Displayable var2) {
         if (field_ax != null) {
-            if (var1 == runImageLoader.field_P && field_ax.field_s != null) {
+            if (var1 == RunImageLoader.field_P && field_ax.field_s != null) {
                 this.method_a12(field_ax.field_s);
                 return;
             }
 
             if (field_ax.field_B == 2) {
-                if (var1 == runImageLoader.field_u) {
+                if (var1 == RunImageLoader.field_u) {
                     int var3 = field_ax.method_a13();
                     String[] var4 = field_ax.method_r();
                     switch (var3) {
                         case 0:
                             System.gc();
-                            this.field_aZ = new runImageLoader(this, 8, 301);
+                            this.field_aZ = new RunImageLoader(this, 8, 301);
                             this.field_aZ.method_o();
                             Thread var5 = new Thread(this);
                             field_J = 4;
@@ -663,7 +664,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                         case 1:
                             System.gc();
                             this.field_av.method_g1();
-                            field_aQ = new runImageLoader(this, 9, 302);
+                            field_aQ = new RunImageLoader(this, 9, 302);
                             field_aQ.method_o();
                             Thread var6 = new Thread(this);
                             field_J = 6;
@@ -684,7 +685,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                     }
                 }
             } else if (field_ax.field_B == 3) {
-                if (var1 == runImageLoader.field_u) {
+                if (var1 == RunImageLoader.field_u) {
                     int var7 = field_ax.method_a13();
                     String[] var30 = field_ax.method_r();
                     this.field_e = null;
@@ -696,7 +697,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                     this.method_a12(this.field_y);
                 }
             } else if (field_ax.field_B == 4) {
-                if (var1 == runImageLoader.field_u) {
+                if (var1 == RunImageLoader.field_u) {
                     int var8 = field_ax.method_a13();
                     String[] var31 = field_ax.method_r();
                     if (var8 == 0) {
@@ -710,44 +711,44 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                     }
                 }
             } else if (field_ax.field_B == 5) {
-                if (var1 == runImageLoader.field_I) {
+                if (var1 == RunImageLoader.field_I) {
                     this.method_a12(field_ax.field_c);
                 }
             } else if (field_ax.field_B == 6) {
-                if (var1 == runImageLoader.field_u) {
+                if (var1 == RunImageLoader.field_u) {
                     this.method_a12(this.field_aD);
                 }
             } else if (field_ax.field_B == 7) {
-                this.field_aR = new runImageLoader(this, 4, 101);
+                this.field_aR = new RunImageLoader(this, 4, 101);
                 this.field_aR.method_a3("Introduction", class_k.field_k[7][3], true);
                 this.method_a12(this.field_aR);
             } else if (field_ax.field_B == 101) {
-                if (var1 == runImageLoader.field_I) {
+                if (var1 == RunImageLoader.field_I) {
                     this.field_av.field_ax = this.field_k;
                     this.field_av.method_i1();
                     this.method_a12(this.field_av);
                 }
             } else if (field_ax.field_B != 8 && field_ax.field_B != 360) {
                 if (field_ax.field_B >= 9 && field_ax.field_B <= 14) {
-                    if (var1 == runImageLoader.field_P) {
+                    if (var1 == RunImageLoader.field_P) {
                         this.method_a12(field_ax.field_s);
                     } else {
                         this.method_d(field_ax);
                     }
                 } else if (field_ax.field_B == 20) {
-                    if (var1 == runImageLoader.field_u) {
+                    if (var1 == RunImageLoader.field_u) {
                         int var10 = field_ax.field_N;
                         int var32 = field_ax.method_a13();
                         int var41 = class_k.method_b2(var10, var32);
                         this.field_ae = this.method_a2(field_ax, var10, 21, 5, var41);
                         this.method_a12(this.field_ae);
-                    } else if (var1 == runImageLoader.field_P) {
+                    } else if (var1 == RunImageLoader.field_P) {
                         int var11 = field_ax.field_N;
                         this.method_k1(var11);
                         this.method_a12(this.field_R[var11]);
                     }
                 } else if (field_ax.field_B == 22) {
-                    if (var1 == runImageLoader.field_u) {
+                    if (var1 == RunImageLoader.field_u) {
                         System.out.println("Found give what select");
                         int var12 = field_ax.field_N;
                         int var33 = field_ax.method_a13();
@@ -755,31 +756,31 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                             this.field_ap = this.method_a2(field_ax, var12, 23, 4, var33);
                             this.method_a12(this.field_ap);
                         }
-                    } else if (var1 == runImageLoader.field_P) {
+                    } else if (var1 == RunImageLoader.field_P) {
                         int var13 = field_ax.field_N;
                         this.method_k1(var13);
                         this.method_a12(this.field_R[var13]);
                     }
                 } else if (field_ax.field_B == 27) {
-                    if (var1 == runImageLoader.field_u) {
+                    if (var1 == RunImageLoader.field_u) {
                         int var14 = field_ax.field_N;
                         int var34 = field_ax.method_a13() + 87;
                         this.field_aJ = this.method_a2(field_ax, var14, 28, 7, var34);
                         this.method_a12(this.field_aJ);
-                    } else if (var1 == runImageLoader.field_P) {
+                    } else if (var1 == RunImageLoader.field_P) {
                         int var15 = field_ax.field_N;
                         this.method_k1(var15);
                         this.method_a12(this.field_R[var15]);
                     }
                 } else if (field_ax.field_B == 350) {
-                    if (var1 == runImageLoader.field_u) {
+                    if (var1 == RunImageLoader.field_u) {
                         int var16 = field_ax.field_N;
                         int var35 = field_ax.method_a13();
                         if (var35 >= 0) {
                             this.field_aI = this.method_a2(field_ax, var16, 351, 8, var35);
                             this.method_a12(this.field_aI);
                         }
-                    } else if (var1 == runImageLoader.field_P) {
+                    } else if (var1 == RunImageLoader.field_P) {
                         int var17 = field_ax.field_N;
                         this.method_k1(var17);
                         this.method_a12(this.field_R[var17]);
@@ -789,16 +790,16 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                         this.method_a12(this.field_av);
                     } else if (field_ax.field_B != 351 && field_ax.field_B != 352 && field_ax.field_B != 353 && field_ax.field_B != 355) {
                         if (field_ax.field_B == 30) {
-                            if (var1 == runImageLoader.field_I) {
+                            if (var1 == RunImageLoader.field_I) {
                                 this.method_a12(this.field_av);
                             }
                         } else if (field_ax.field_B == 41) {
-                            if (var1 == runImageLoader.field_I) {
+                            if (var1 == RunImageLoader.field_I) {
                                 this.field_k.field_Q = false;
                                 this.method_a12(this.field_av);
                             }
                         } else if (field_ax.field_B == 31) {
-                            if (var1 == runImageLoader.field_u) {
+                            if (var1 == RunImageLoader.field_u) {
                                 int var20 = field_ax.method_a13();
                                 String[] var36 = field_ax.method_r();
                                 switch (var20) {
@@ -819,7 +820,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                         this.method_a12(this.field_v);
                                         break;
                                     case 4:
-                                        field_al = new runImageLoader(this, 10, 303);
+                                        field_al = new RunImageLoader(this, 10, 303);
                                         field_al.method_o();
                                         Thread var42 = new Thread(this);
                                         field_J = 5;
@@ -829,7 +830,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                     case 5:
                                         System.gc();
                                         this.field_av.method_g1();
-                                        field_aQ = new runImageLoader(this, 9, 302);
+                                        field_aQ = new RunImageLoader(this, 9, 302);
                                         field_aQ.method_o();
                                         Thread var46 = new Thread(this);
                                         field_J = 6;
@@ -837,7 +838,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                         this.method_a12(field_aQ);
                                         break;
                                     case 6:
-                                        method_c3("Help");
+                                        debugPrint("Help");
                                         this.field_D = this.method_b1(field_ax);
                                         this.method_a12(this.field_D);
                                         break;
@@ -849,15 +850,15 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                         this.method_g1();
                                         this.method_a12(this.field_ao);
                                 }
-                            } else if (var1 == runImageLoader.field_z) {
+                            } else if (var1 == RunImageLoader.field_z) {
                                 this.method_a12(this.field_av);
                             }
                         } else if (field_ax.field_B == 32) {
-                            if (var1 == runImageLoader.field_I) {
+                            if (var1 == RunImageLoader.field_I) {
                                 this.method_a12(this.field_t);
                             }
                         } else if (field_ax.field_B == 33) {
-                            if (var1 == runImageLoader.field_u) {
+                            if (var1 == RunImageLoader.field_u) {
                                 int var21 = field_ax.method_a13();
                                 if (var21 >= 0) {
                                     this.field_aB = this.newInventoryItemUI(var21);
@@ -866,7 +867,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                 }
                             }
                         } else if (field_ax.field_B == 34) {
-                            if (var1 == runImageLoader.field_u) {
+                            if (var1 == RunImageLoader.field_u) {
                                 int var22 = field_ax.method_a13();
                                 Integer var37 = (Integer)field_ax.field_n.elementAt(var22);
                                 int var43 = var37;
@@ -901,17 +902,17 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                 this.field_Y = -1;
                             }
                         } else if (field_ax.field_B == 35) {
-                            if (var1 == runImageLoader.field_u) {
+                            if (var1 == RunImageLoader.field_u) {
                                 int var23 = field_ax.method_a13();
                                 this.field_N = this.newSkillInfoUI(var23);
                                 this.method_a12(this.field_N);
                             }
                         } else if (field_ax.field_B == 36) {
-                            if (var1 == runImageLoader.field_I) {
+                            if (var1 == RunImageLoader.field_I) {
                                 this.method_a12(this.field_L);
                             }
                         } else if (field_ax.field_B == 37) {
-                            if (var1 == runImageLoader.field_u) {
+                            if (var1 == RunImageLoader.field_u) {
                                 int var24 = field_ax.method_a13();
                                 if (var24 >= 0) {
                                     this.field_q = this.newSpellInfoUI(var24);
@@ -920,7 +921,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                 }
                             }
                         } else if (field_ax.field_B == 38) {
-                            if (var1 == runImageLoader.field_u) {
+                            if (var1 == RunImageLoader.field_u) {
                                 int var25 = this.field_k.method_B(this.field_g);
                                 this.field_k.field_b = (byte)(var25 + 1);
                                 this.field_v = this.newSpellsListUI();
@@ -928,7 +929,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                 this.field_g = -1;
                             }
                         } else if (field_ax.field_B == 39) {
-                            if (var1 == runImageLoader.field_u) {
+                            if (var1 == RunImageLoader.field_u) {
                                 String var26 = field_ax.method_p();
                                 field_l[field_ax.field_N] = -1;
 
@@ -958,7 +959,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                 }
                             }
                         } else if (field_ax.field_B == 202) {
-                            if (var1 == runImageLoader.field_u) {
+                            if (var1 == RunImageLoader.field_u) {
                                 int var27 = field_ax.method_a13();
                                 if (var27 == 0) {
                                     this.method_a12(this.field_f);
@@ -967,7 +968,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                                 }
                             }
                         } else if (field_ax.field_B == 202) {
-                            ((class_a)this).method_b4();
+                            ((javaMicroMIDlet)this).method_b4();
                         } else if (field_ax.field_B == 40) {
                             this.method_a12(this.field_av);
                             this.field_av.method_b6();
@@ -975,7 +976,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                             this.method_a12(this.field_av);
                             this.field_av.method_b6();
                         } else if (field_ax.field_B == 203) {
-                            if (var1 == runImageLoader.field_u) {
+                            if (var1 == RunImageLoader.field_u) {
                                 int var28 = field_ax.method_a13();
                                 this.field_F = this.method_g(var28);
                                 this.method_a12(this.field_F);
@@ -992,28 +993,28 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                             this.method_a12(field_ax.field_s);
                         } else if (field_ax.field_B != 200 && field_ax.field_B != 201) {
                             if (field_ax.field_B == 399) {
-                                ((class_a)this).method_b4();
+                                ((javaMicroMIDlet)this).method_b4();
                             } else if (field_ax.field_B == 499) {
-                                ((class_a)this).method_b4();
+                                ((javaMicroMIDlet)this).method_b4();
                             }
                         } else {
                             this.method_a12(field_ax.field_c);
                         }
-                    } else if (var1 == runImageLoader.field_I) {
+                    } else if (var1 == RunImageLoader.field_I) {
                         int var19 = field_ax.field_N;
                         this.method_k1(var19);
                         this.method_a12(this.field_R[var19]);
                     }
-                } else if (var1 == runImageLoader.field_I) {
+                } else if (var1 == RunImageLoader.field_I) {
                     int var18 = field_ax.field_N;
                     this.method_k1(var18);
                     this.method_a12(this.field_R[var18]);
                 }
-            } else if (var1 == runImageLoader.field_I) {
+            } else if (var1 == RunImageLoader.field_I) {
                 if (field_ax.field_c == null) {
                     System.out.println("ERROR: next is null!");
                 } else {
-                    runImageLoader var9 = (runImageLoader)field_ax.field_c;
+                    RunImageLoader var9 = (RunImageLoader)field_ax.field_c;
                     if (var9 == null) {
                         System.out.println("uic.next is null!");
                     }
@@ -1022,33 +1023,33 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                 this.method_a12(field_ax.field_c);
             }
         } else if (var2 == this.field_w) {
-            ((class_a)this).method_b4();
+            ((javaMicroMIDlet)this).method_b4();
         } else if (var2 == this.field_ao) {
             this.method_a12(this.field_av);
         } else if (var2 == this.field_W) {
             if (var1 == field_aS) {
-                ((class_a)this).method_b4();
+                ((javaMicroMIDlet)this).method_b4();
             }
         } else if (var2 == this.field_aD) {
-            if (var1 == runImageLoader.field_I) {
+            if (var1 == RunImageLoader.field_I) {
                 TextField var29 = (TextField)this.field_aD.get(1);
                 String nameInputString = var29.getString();
                 if (nameInputString.length() < 3) {
-                    Alert var45 = new Alert("Error", class_f.replacePOSWithInt("Your character name must be at least <TAG> letters", "<TAG>", 3), (Image)null, AlertType.ERROR);
+                    Alert var45 = new Alert("Error", DataTools.replacePOSWithInt("Your character name must be at least <TAG> letters", "<TAG>", 3), (Image)null, AlertType.ERROR);
                     var45.setTimeout(-2);
                     this.method_a12(var45);
                 } else {
                     this.field_k.field_v = nameInputString;
                     this.method_a12(this.field_M);
                 }
-            } else if (var1 == runImageLoader.field_P) {
+            } else if (var1 == RunImageLoader.field_P) {
                 this.method_a12(this.field_aE);
             }
         }
 
     }
 
-    private void method_d(runImageLoader var1) {
+    private void method_d(RunImageLoader var1) {
         int var3 = var1.method_a13();
         int var4 = var1.field_B - 9;
         switch (var4) {
@@ -1126,8 +1127,8 @@ public class ESGame extends class_a implements Runnable, CommandListener {
 
     }
 
-    private runImageLoader method_a2(runImageLoader var1, int var2, int var3, int var4, int var5) {
-        runImageLoader var6 = new runImageLoader(this, 4, var3);
+    private RunImageLoader method_a2(RunImageLoader var1, int var2, int var3, int var4, int var5) {
+        RunImageLoader var6 = new RunImageLoader(this, 4, var3);
         var6.method_a3("NPC name here", "NPC text here", true);
         String var7 = class_k.method_a6(this.field_k, var2, var4, var5);
         var6.method_a17(class_k.field_s[var2]);
@@ -1409,7 +1410,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
 
     private static void method_b2(byte[] var0) throws Exception {
         DataInputStream var1 = new DataInputStream(new ByteArrayInputStream(var0, 0, var0.length));
-        .class_a.field_i = var1.readShort();
+        .javaMicroMIDlet.field_i = var1.readShort();
         class_d.field_j = var1.readShort();
 
         for(int var2 = 0; var2 < 7; ++var2) {
@@ -1449,7 +1450,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         for(int var9 = 0; var9 < 7; ++var9) {
             if (!class_k.field_b[var9]) {
                 class_i var10 = field_u[0];
-                var10.field_w[class_k.field_j[var9]][class_k.field_i[var9]] = class_f.method_c1((byte)32, var10.field_w[class_k.field_j[var9]][class_k.field_i[var9]]);
+                var10.field_w[class_k.field_j[var9]][class_k.field_i[var9]] = DataTools.clearManyBits((byte)32, var10.field_w[class_k.field_j[var9]][class_k.field_i[var9]]);
             }
         }
 
@@ -1625,7 +1626,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
 
             for(int var27 = 0; var27 < var24; ++var27) {
                 byte[] var29 = method_a6(var20, 8);
-                String var10 = class_f.method_b1(var29[0], var29[1]);
+                String var10 = DataTools.commaBetweenInts(var29[0], var29[1]);
                 field_S[var15].put(var10, var29);
             }
 
@@ -1686,7 +1687,8 @@ public class ESGame extends class_a implements Runnable, CommandListener {
 
     }
 
-    public static void method_c3(String var0) {
+    //empty, probably removed for release
+    public static void debugPrint(String var0) {
     }
 
     static String method_f(String var0) {
@@ -1796,7 +1798,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                     for(int var5 = 0; var5 < var4; ++var5) {
                         int var6 = var3 + var5;
                         if (!this.method_m1(var6)) {
-                            class_e.field_q[var6] = class_g.makeMovingSprite(field_T[var2][var5]);
+                            class_e.field_q[var6] = class_g.makeMultiSprite(field_T[var2][var5]);
                         }
 
                         if (!this.field_ak) {
@@ -1842,7 +1844,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         }
 
         System.gc();
-        method_c3("After unloading all monster images");
+        debugPrint("After unloading all monster images");
     }
 
     static void killMonster(int dungid, int var1) {
@@ -1852,14 +1854,14 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         byte var4 = var2[5];
         class_i var5 = field_u[dungid - 1];
         if (var2 != null) {
-            var5.field_w[var3][var4] = class_f.method_c1((byte)2, var5.field_w[var3][var4]);
+            var5.field_w[var3][var4] = DataTools.clearManyBits((byte)2, var5.field_w[var3][var4]);
         }
 
         System.out.println("End of killMonster, size of HT is " + field_G[dungid - 1].size());
     }
 
-    private runImageLoader newInventoryItemUI(int itemToGet) {
-        runImageLoader var2 = new runImageLoader(this, 5, 34);
+    private RunImageLoader newInventoryItemUI(int itemToGet) {
+        RunImageLoader var2 = new RunImageLoader(this, 5, 34);
         System.out.println("In newInventoryItemUI: getting item " + itemToGet);
         String var3 = this.field_k.method_b7(itemToGet);
         Vector var4 = new Vector();
@@ -1898,10 +1900,10 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         return var2;
     }
 
-    private runImageLoader newSkillsListUI() {
+    private RunImageLoader newSkillsListUI() {
         System.gc();
-        method_c3("Start of newSkillsListUI");
-        runImageLoader var1 = new runImageLoader(this, 5, 35);
+        debugPrint("Start of newSkillsListUI");
+        RunImageLoader var1 = new RunImageLoader(this, 5, 35);
         Vector var2 = this.field_k.method_f2();
         int var3 = var2.size();
         String[] var4 = new String[var3];
@@ -1915,10 +1917,10 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         return var1;
     }
 
-    private runImageLoader newSkillInfoUI(int var1) {
+    private RunImageLoader newSkillInfoUI(int var1) {
         System.gc();
-        method_c3("Start of newSkillInfoUI");
-        runImageLoader var2 = new runImageLoader(this, 4, 36);
+        debugPrint("Start of newSkillInfoUI");
+        RunImageLoader var2 = new RunImageLoader(this, 4, 36);
         int var3 = this.field_k.method_l(var1);
         String var4 = this.field_k.method_m1(var3);
         var2.method_a2("Skill Info", var4);
@@ -1926,10 +1928,10 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         return var2;
     }
 
-    private runImageLoader newSpellsListUI() {
+    private RunImageLoader newSpellsListUI() {
         System.gc();
-        method_c3("Start of newSpellsListUI");
-        runImageLoader var1 = new runImageLoader(this, 5, 37);
+        debugPrint("Start of newSpellsListUI");
+        RunImageLoader var1 = new RunImageLoader(this, 5, 37);
         Vector var2 = this.field_k.method_J();
         int var3 = var2.size();
         String[] var4 = new String[var3];
@@ -1943,10 +1945,10 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         return var1;
     }
 
-    private runImageLoader newSpellInfoUI(int var1) {
+    private RunImageLoader newSpellInfoUI(int var1) {
         System.gc();
-        method_c3("Start of newSpellInfoUI");
-        runImageLoader var2 = new runImageLoader(this, 5, 38);
+        debugPrint("Start of newSpellInfoUI");
+        RunImageLoader var2 = new RunImageLoader(this, 5, 38);
         int var3 = this.field_k.method_B(var1);
         String var4 = this.field_k.method_s1(var3);
         String[] var5 = new String[]{"Ready Spell"};
@@ -1956,10 +1958,10 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         return var2;
     }
 
-    runImageLoader newLevelUpUI(int levelUpIndex) {
+    RunImageLoader newLevelUpUI(int levelUpIndex) {
         System.gc();
-        method_c3("Start of newLevelUpUI: index= " + levelUpIndex);
-        runImageLoader var2 = new runImageLoader(this, 5, 39);
+        debugPrint("Start of newLevelUpUI: index= " + levelUpIndex);
+        RunImageLoader var2 = new RunImageLoader(this, 5, 39);
         String[] var3 = this.field_k.method_q1();
         String var4 = null;
         if (levelUpIndex == 1) {
@@ -1974,46 +1976,46 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         }
 
         var2.method_a4("Level Up", var4, var3, (Vector)null);
-        var2.field_t.removeCommand(runImageLoader.field_P);
+        var2.field_t.removeCommand(RunImageLoader.field_P);
         var2.field_A = true;
         var2.field_s = var2;
         return var2;
     }
 
-    runImageLoader newWardenSpeaksUI(String var1) {
+    RunImageLoader newWardenSpeaksUI(String var1) {
         System.gc();
-        method_c3("Start of newWardenSpeaksUI");
-        runImageLoader var2 = new runImageLoader(this, 4, 102);
+        debugPrint("Start of newWardenSpeaksUI");
+        RunImageLoader var2 = new RunImageLoader(this, 4, 102);
         var2.method_a2("Varus", var1);
         return var2;
     }
 
-    runImageLoader newEndOfGameUI() {
+    RunImageLoader newEndOfGameUI() {
         System.gc();
-        method_c3("Start of newEndOfGameUI");
+        debugPrint("Start of newEndOfGameUI");
         String var1 = class_k.field_k[7][4];
-        runImageLoader var2 = new runImageLoader(this, 4, 200);
+        RunImageLoader var2 = new RunImageLoader(this, 4, 200);
         var2.method_a2("Victory!", var1);
         var2.field_c = this.newGameOverUI();
         return var2;
     }
 
-    private runImageLoader newGameOverUI() {
+    private RunImageLoader newGameOverUI() {
         System.gc();
-        method_c3("Start of newGameOverUI");
+        debugPrint("Start of newGameOverUI");
         String var1 = class_k.field_k[7][5];
-        runImageLoader var2 = new runImageLoader(this, 4, 201);
+        RunImageLoader var2 = new RunImageLoader(this, 4, 201);
         var2.method_a2("Game Over", var1);
         var2.field_c = this.field_U;
         return var2;
     }
 
     static DataInputStream method_a10(String var0) throws Exception {
-        InputStream var1 = (new Object()).getClass().getResourceAsStream(class_f.method_b(var0));
+        InputStream var1 = (new Object()).getClass().getResourceAsStream(DataTools.method_b(var0));
         if (var1 == null) {
             return null;
         } else {
-            byte[] var2 = class_f.method_a(var1.available(), var1);
+            byte[] var2 = DataTools.method_a(var1.available(), var1);
             return new DataInputStream(new ByteArrayInputStream(var2));
         }
     }
@@ -2032,8 +2034,8 @@ public class ESGame extends class_a implements Runnable, CommandListener {
 
     void method_a12(Object var1) {
         if (field_ax != null) {
-            if (var1 instanceof runImageLoader) {
-                runImageLoader var2 = (runImageLoader)var1;
+            if (var1 instanceof RunImageLoader) {
+                RunImageLoader var2 = (RunImageLoader)var1;
                 if (field_ax != var2) {
                     field_ax.method_q();
                 }
@@ -2050,10 +2052,10 @@ public class ESGame extends class_a implements Runnable, CommandListener {
             this.field_d = Display.getDisplay(this);
         }
 
-        if (var1 instanceof runImageLoader) {
-            field_ax = (runImageLoader)var1;
-            class_c var3 = runImageLoader.method_j();
-            var3.field_a = field_ax;
+        if (var1 instanceof RunImageLoader) {
+            field_ax = (RunImageLoader)var1;
+            GameCanvas var3 = RunImageLoader.method_j();
+            var3.imageLoader = field_ax;
             field_ax.field_t = var3;
             this.field_d.setCurrent(field_ax.field_t);
             field_ax.method_h();
@@ -2068,7 +2070,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
     }
 
     private static void method_I() throws Exception {
-        DataInputStream var0 = class_f.method_a1("/geomin.dat");
+        DataInputStream var0 = DataTools.method_a1("/geomin.dat");
         field_ai = new byte[37][6];
 
         for(int var1 = 0; var1 < 37; ++var1) {
@@ -2081,7 +2083,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
 
     private static void method_C() throws Exception {
         InputStream var0 = (new Object()).getClass().getResourceAsStream("/monsterfilenamesin.dat");
-        byte[] var1 = class_f.method_a(var0.available(), var0);
+        byte[] var1 = DataTools.method_a(var0.available(), var0);
         DataInputStream var2 = new DataInputStream(new ByteArrayInputStream(var1));
         field_T = new String[5][7];
 
@@ -2201,7 +2203,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
             var4 = class_k.field_g;
         }
 
-        var3 = class_f.replacePOSWithInt(var2, "<TAG>", var4);
+        var3 = DataTools.replacePOSWithInt(var2, "<TAG>", var4);
         this.field_R[var1].method_e2(var3);
     }
 
@@ -2214,7 +2216,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
             var2 = var1.length;
         }
 
-        int var3 = class_f.method_a2(10000);
+        int var3 = DataTools.method_a2(10000);
         String var4 = "es_gamestate" + var3;
 
         while(true) {
@@ -2230,7 +2232,7 @@ public class ESGame extends class_a implements Runnable, CommandListener {
                 return var4;
             }
 
-            var3 = class_f.method_a2(10000);
+            var3 = DataTools.method_a2(10000);
             var4 = "es_gamestate" + var3;
         }
     }
@@ -2311,19 +2313,19 @@ public class ESGame extends class_a implements Runnable, CommandListener {
         this.field_m.method_e2(var1);
         this.field_m.field_c = this.field_R[5];
         this.field_m.field_N = 5;
-        runImageLoader var2 = (runImageLoader)this.field_m.field_c;
+        RunImageLoader var2 = (RunImageLoader)this.field_m.field_c;
         String var3 = var2.field_M;
         String var4 = var2.method_t();
         short var5 = 0;
         var5 = class_k.field_g;
-        var4 = class_f.replacePOSWithInt(var3, "<TAG>", var5);
+        var4 = DataTools.replacePOSWithInt(var3, "<TAG>", var5);
         var2.method_e2(var4);
         this.method_a12(this.field_m);
     }
 
     private void method_j1() {
         if (field_aT == 4) {
-            ((class_a)this).method_b4();
+            ((javaMicroMIDlet)this).method_b4();
         }
 
     }

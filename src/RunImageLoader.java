@@ -18,13 +18,13 @@ import javax.microedition.lcdui.List;
 import javax.microedition.lcdui.Screen;
 import javax.microedition.lcdui.StringItem;
 
-public class runImageLoader implements Runnable {
-    static class_c[] field_K = new class_c[2];
+public class RunImageLoader implements Runnable {
+    static GameCanvas[] field_K = new GameCanvas[2];
     static int field_x;
     static Image field_r;
     Vector field_q;
     CommandListener field_J;
-    static final Font field_O;
+    static final Font font0;
     private static final Font font1;
     private static final Font font2;
     static final Font font3;
@@ -63,7 +63,7 @@ public class runImageLoader implements Runnable {
     int field_k;
     boolean field_A = false;
 
-    public runImageLoader(ESGame game, int var2, int var3) {
+    public RunImageLoader(ESGame game, int var2, int var3) {
         this.esGameField = game; //stores an ESGame
         this.field_Q = var2;
         this.field_B = var3;
@@ -105,12 +105,12 @@ public class runImageLoader implements Runnable {
         this.field_v = 0;
         this.field_k = 0;
         this.field_t = field_K[field_x];
-        this.method_a18(field_u);
+        this.addCommand(field_u);
         if (var4) {
-            this.method_a18(field_P);
+            this.addCommand(field_P);
         }
 
-        this.method_a19(this.esGameField);
+        this.setCommandListener(this.esGameField);
     }
 
     void method_n() {
@@ -121,8 +121,8 @@ public class runImageLoader implements Runnable {
         }
 
         this.method_a2("Exiting", var1);
-        this.method_b3(field_I);
-        this.method_a18(field_a);
+        this.removeCommand(field_I);
+        this.addCommand(field_a);
     }
 
     void method_a2(String var1, String var2) {
@@ -141,8 +141,8 @@ public class runImageLoader implements Runnable {
         this.field_v = 0;
         this.field_k = 0;
         this.field_t = field_K[field_x];
-        this.method_a18(field_I);
-        this.method_a19(this.esGameField);
+        this.addCommand(field_I);
+        this.setCommandListener(this.esGameField);
     }
 
     void method_a4(String var1, String var2, String[] var3, Vector var4) {
@@ -171,9 +171,9 @@ public class runImageLoader implements Runnable {
         this.field_v = 0;
         this.field_k = 0;
         this.field_t = field_K[field_x];
-        this.method_a18(field_u);
-        this.method_a18(field_P);
-        this.method_a19(this.esGameField);
+        this.addCommand(field_u);
+        this.addCommand(field_P);
+        this.setCommandListener(this.esGameField);
         if (var2 != null && var2.indexOf("<TAG>") >= 0) {
             this.field_M = new String(var2);
         }
@@ -201,12 +201,12 @@ public class runImageLoader implements Runnable {
         var6.append(var9);
         this.field_n = var5;
         this.field_t = field_K[field_x];
-        this.method_a18(field_u);
-        this.method_a18(field_P);
-        this.method_a19(this.esGameField);
+        this.addCommand(field_u);
+        this.addCommand(field_P);
+        this.setCommandListener(this.esGameField);
     }
 
-    public void method_e1(Graphics var1) {
+    public void paint(Graphics var1) {
         Graphics var2 = field_r.getGraphics();
         switch (this.field_Q) {
             case 1:
@@ -492,7 +492,7 @@ public class runImageLoader implements Runnable {
 
     private void method_a11(Vector var1, String var2) {
         int var3 = this.method_b4() - this.field_g - this.field_F;
-        String[] var4 = class_f.method_c2(var2);
+        String[] var4 = DataTools.method_c2(var2);
         int var5 = var4.length;
         String var6 = "";
 
@@ -565,7 +565,7 @@ public class runImageLoader implements Runnable {
         return var2;
     }
 
-    protected void method_b2(int var1) {
+    protected void keyPressed(int var1) {
         if (var1 == -6) {
             Command var2 = this.method_s();
             if (var2 != null) {
@@ -780,7 +780,7 @@ public class runImageLoader implements Runnable {
             ESGame.field_O = null;
             ESGame.field_aU = null;
             this.field_D = null;
-            ESGame.method_c3("After nuking splash");
+            ESGame.debugPrint("After nuking splash");
             System.out.println("End of splash, changing to next");
             this.esGameField.method_a12(this.field_c);
         } catch (Throwable var8) {
@@ -867,15 +867,15 @@ public class runImageLoader implements Runnable {
         return null;
     }
 
-    public void method_a18(Command var1) {
+    public void addCommand(Command var1) {
         this.field_q.addElement(var1);
     }
 
-    public void method_b3(Command var1) {
+    public void removeCommand(Command var1) {
         this.field_q.removeElement(var1);
     }
 
-    public void method_a19(CommandListener var1) {
+    public void setCommandListener(CommandListener var1) {
         this.field_J = var1;
     }
 
@@ -885,7 +885,7 @@ public class runImageLoader implements Runnable {
             var1.fillRect(0, 190, this.method_b4(), 20);
             int var2 = this.field_q.size();
             var1.setColor(0);
-            var1.setFont(field_O);
+            var1.setFont(font0);
             Command var3 = this.method_s();
             if (var3 != null) {
                 var1.drawString(var3.getLabel(), 10, 192, 20);
@@ -933,7 +933,7 @@ public class runImageLoader implements Runnable {
         return var2;
     }
 
-    static class_c method_j() {
+    static GameCanvas method_j() {
         return field_K[field_x];
     }
 
@@ -960,8 +960,8 @@ public class runImageLoader implements Runnable {
     }
 
     static {
-        field_K[0] = new class_c();
-        field_K[1] = new class_c();
+        field_K[0] = new GameCanvas();
+        field_K[1] = new GameCanvas();
         field_x = 0;
 
         try {
@@ -970,7 +970,7 @@ public class runImageLoader implements Runnable {
             System.out.println("Error allocating bufferImage");
         }
 
-        field_O = Font.getFont(0, 1, 8);
+        font0 = Font.getFont(0, 1, 8);
         font1 = Font.getFont(0, 1, 0);
         font2 = Font.getFont(64, 0, 8);
         font3 = Font.getFont(0, 1, 8);

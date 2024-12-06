@@ -87,7 +87,7 @@ public class class_d {
         field_p.field_n = var0[7];
         field_p.field_b = var0[8];
         field_p.field_f = var0[9];
-        field_p.field_k = class_f.method_a9(var0, 10);
+        field_p.field_k = DataTools.method_a9(var0, 10);
 
         for(int var3 = 0; var3 < 10; ++var3) {
             field_p.field_c[var3] = var0[18 + var3];
@@ -108,7 +108,7 @@ public class class_d {
         var0.field_n = var1[7];
         var0.field_b = var1[8];
         var0.field_f = var1[9];
-        var0.field_k = class_f.method_a9(var1, 10);
+        var0.field_k = DataTools.method_a9(var1, 10);
 
         for(int var4 = 0; var4 < 10; ++var4) {
             var0.field_c[var4] = var1[18 + var4];
@@ -172,8 +172,8 @@ public class class_d {
                 } else if (!var5.method_d2(var3, var4)) {
                     return false;
                 } else {
-                    var5.field_w[this.field_o][this.field_m] = class_f.method_c1((byte)2, var5.field_w[this.field_o][this.field_m]);
-                    var5.field_w[var3][var4] = class_f.method_b2((byte)2, var5.field_w[var3][var4]);
+                    var5.field_w[this.field_o][this.field_m] = DataTools.clearManyBits((byte)2, var5.field_w[this.field_o][this.field_m]);
+                    var5.field_w[var3][var4] = DataTools.setManyBits((byte)2, var5.field_w[var3][var4]);
                     this.field_o = var3;
                     this.field_m = var4;
                     return true;
@@ -298,8 +298,8 @@ public class class_d {
         int var8 = var1.method_I() + var6 * 5;
         var7 = Math.min(Math.max(var7, 10), 95);
         var8 = Math.min(Math.max(var8, 10), 95);
-        int var9 = class_f.method_a2(100);
-        int var10 = class_f.method_a2(100);
+        int var9 = DataTools.method_a2(100);
+        int var10 = DataTools.method_a2(100);
         boolean var11 = var9 <= var7;
         boolean var12 = var10 <= var8;
         byte var13 = 0;
@@ -343,7 +343,7 @@ public class class_d {
             if (var13 < 3) {
                 this.field_f = 1;
             } else {
-                if (class_f.method_a2(100) <= 30) {
+                if (DataTools.method_a2(100) <= 30) {
                     byte var18 = field_e[this.field_l - 1][11];
                     if (var18 > 0) {
                         int var19 = var18 - 1;
@@ -370,7 +370,7 @@ public class class_d {
     }
 
     static void method_g() throws Exception {
-        DataInputStream var0 = class_f.method_a1("/monstersin.dat");
+        DataInputStream var0 = DataTools.method_a1("/monstersin.dat");
         field_j = 0;
         field_d = var0.readInt();
         field_h = new String[field_d];
@@ -436,7 +436,7 @@ public class class_d {
         }
 
         byte var3 = field_e[this.field_l - 1][16];
-        int var4 = class_f.method_a2(100);
+        int var4 = DataTools.method_a2(100);
         boolean var5 = var4 <= var2;
         if (var5 || var1) {
             class_i var6 = ESGame.field_u[this.field_n - 1];

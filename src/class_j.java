@@ -1011,67 +1011,67 @@ public class class_j {
         }
 
         var2 = var1.method_a13(-1, 1, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 0);
         }
 
         var2 = var1.method_a13(0, 1, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 1);
         }
 
         var2 = var1.method_a13(1, 1, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 2);
         }
 
         var2 = var1.method_a13(-2, 2, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 3);
         }
 
         var2 = var1.method_a13(-1, 2, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 4);
         }
 
         var2 = var1.method_a13(0, 2, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 5);
         }
 
         var2 = var1.method_a13(1, 2, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 6);
         }
 
         var2 = var1.method_a13(2, 2, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 7);
         }
 
         var2 = var1.method_a13(-2, 3, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 8);
         }
 
         var2 = var1.method_a13(-1, 3, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 9);
         }
 
         var2 = var1.method_a13(0, 3, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 10);
         }
 
         var2 = var1.method_a13(1, 3, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 11);
         }
 
         var2 = var1.method_a13(2, 3, this.field_ae);
-        if (class_f.method_a8((byte)1, var2)) {
+        if (DataTools.doBytesShareBits((byte)1, var2)) {
             field_ad.setElementAt(field_am, 12);
         }
 
@@ -1234,8 +1234,8 @@ public class class_j {
     }
 
     static int method_d2(int var0, int var1) {
-        int var2 = class_f.method_a2(100);
-        int var3 = class_f.method_a2(100);
+        int var2 = DataTools.method_a2(100);
+        int var3 = DataTools.method_a2(100);
         boolean var4 = var2 <= var1;
         field_D = var3 <= var0;
         byte var5 = 0;
@@ -1539,7 +1539,7 @@ public class class_j {
             if (var2 == null) {
                 return null;
             } else {
-                Object var3 = var2.get(class_f.method_b1(this.field_z, this.field_w));
+                Object var3 = var2.get(DataTools.commaBetweenInts(this.field_z, this.field_w));
                 if (var3 == null) {
                     return null;
                 } else {
@@ -2064,7 +2064,7 @@ public class class_j {
         byte var10000 = class_a.field_j[var2 - 1];
         int var4 = this.field_P[var1] & 255;
         int var5 = var4 - 1;
-        this.field_x = class_f.method_a7(var5, this.field_x);
+        this.field_x = DataTools.setSingleBit(var5, this.field_x);
         this.method_y1(var1);
         return true;
     }
@@ -2195,7 +2195,7 @@ public class class_j {
             if (var1 == 1) {
                 var2 = 1;
             } else {
-                var2 = class_f.method_a2(var1);
+                var2 = DataTools.method_a2(var1);
             }
 
             int var3 = 0;
@@ -2205,7 +2205,7 @@ public class class_j {
                 if (var5 == 1) {
                     ++var3;
                     if (var3 == var2) {
-                        this.field_A = (byte)class_f.method_c(var4, this.field_A);
+                        this.field_A = (byte) DataTools.clearSingleBit(var4, this.field_A);
                         break;
                     }
                 }
@@ -2443,7 +2443,7 @@ public class class_j {
         this.field_s = false;
         this.field_L = false;
         this.field_I = false;
-        int var5 = class_f.method_a2(100);
+        int var5 = DataTools.method_a2(100);
         if (var5 <= 10) {
             for(int var6 = 0; var6 < this.field_p; ++var6) {
                 int var7 = Math.abs(this.field_H[var6]);
@@ -2457,9 +2457,9 @@ public class class_j {
         for(int var9 = 0; var9 < 8; ++var9) {
             int var10 = var9 + 1;
             if (var10 != 4 && var10 != 5) {
-                var5 = class_f.method_a2(100);
+                var5 = DataTools.method_a2(100);
                 if (var5 <= 25) {
-                    this.field_A = (byte)class_f.method_c(var9, this.field_A);
+                    this.field_A = (byte) DataTools.clearSingleBit(var9, this.field_A);
                 }
             }
         }

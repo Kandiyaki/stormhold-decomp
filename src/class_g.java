@@ -24,29 +24,29 @@ public class class_g {
     }
 
     //allocates sprites for things that look different based on distance?
-    static class_g makeMovingSprite(String var0) throws Exception {
-        InputStream var1 = (new Object()).getClass().getResourceAsStream(method_a1(var0));
-        if (var1 == null) {
-            throw new Exception("Image " + var0 + " is null!");
+    static class_g makeMultiSprite(String path) throws Exception {
+        InputStream stream = (new Object()).getClass().getResourceAsStream(putSlashAtFront(path));
+        if (stream == null) {
+            throw new Exception("Image " + path + " is null!");
         } else {
             class_g var2 = new class_g();
-            var2.field_e = method_b2(var1);
-            var2.field_a = method_b2(var1);
+            var2.field_e = getIntFromInputStream(stream);
+            var2.field_a = getIntFromInputStream(stream);
             var2.field_h = var2.field_e;
-            int var3 = var1.read() & 255;
+            int var3 = stream.read() & 255;
             if (var3 != 0) {
                 var2.field_c = true;
             } else {
                 var2.field_c = false;
             }
 
-            var2.field_d = method_a2(var1);
-            int var4 = var1.read() & 255;
-            if (var4 > 255) {
-                throw new Exception("Too many colors in image " + var0);
+            var2.field_d = getShortFromInputStream(stream);
+            int imageColorCount = stream.read() & 255;
+            if (imageColorCount > 255) {
+                throw new Exception("Too many colors in image " + path);
             } else {
-                for(int var5 = 0; var5 < var4; ++var5) {
-                    short var6 = method_a2(var1);
+                for(int var5 = 0; var5 < imageColorCount; ++var5) {
+                    short var6 = getShortFromInputStream(stream);
                     field_b[var5] = var6;
                     if (var2.field_c && var2.field_f < 0 && var2.field_d == var6) {
                         var2.field_f = (short)var5;
@@ -57,7 +57,7 @@ public class class_g {
                 var2.field_g = new short[var10];
 
                 for(int var7 = 0; var7 < var10; ++var7) {
-                    int var8 = var1.read() & 255;
+                    int var8 = stream.read() & 255;
                     short var9 = field_b[var8];
                     if (var2.field_c && var8 == var2.field_f) {
                         var9 = (short)(var9 & -61441);
@@ -81,30 +81,30 @@ public class class_g {
         return this.field_a;
     }
 
-    private static String method_a1(String var0) {
+    private static String putSlashAtFront(String var0) {
         return var0.startsWith("/") ? var0 : "/" + var0;
     }
 
-    private static int method_b2(InputStream var0) throws Exception {
-        int var5 = 0;
-        int var1 = var0.read();
-        var5 |= var1 << 24;
-        int var2 = var0.read();
-        var5 |= var2 << 16;
-        int var3 = var0.read();
-        var5 |= var3 << 8;
-        int var4 = var0.read();
-        var5 |= var4;
-        return var5;
+    private static int getIntFromInputStream(InputStream stream) throws Exception {
+        int output = 0;
+        int var1 = stream.read();
+        output |= var1 << 24;
+        int var2 = stream.read();
+        output |= var2 << 16;
+        int var3 = stream.read();
+        output |= var3 << 8;
+        int var4 = stream.read();
+        output |= var4;
+        return output;
     }
 
-    private static short method_a2(InputStream var0) throws Exception {
-        int var5 = 0;
-        int var1 = var0.read();
-        var5 |= var1 << 8;
-        int var2 = var0.read();
-        var5 |= var2;
-        var5 &= 65535;
-        return (short)var5;
+    private static short getShortFromInputStream(InputStream stream) throws Exception {
+        int output = 0;
+        int var1 = stream.read();
+        output |= var1 << 8;
+        int var2 = stream.read();
+        output |= var2;
+        output &= 65535;
+        return (short)output;
     }
 }

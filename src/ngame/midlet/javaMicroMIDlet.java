@@ -12,7 +12,8 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
-public abstract class class_a extends MIDlet implements CommandListener {
+//interface with java micro?
+public abstract class javaMicroMIDlet extends MIDlet implements CommandListener {
     protected boolean field_Z = true;
     public String field_aF;
     public Display field_d = Display.getDisplay(this);
@@ -20,7 +21,7 @@ public abstract class class_a extends MIDlet implements CommandListener {
     public static final Command field_r = new Command("Exit", 7, 1);
     public static final Command field_aX = new Command("Exit", 7, 1);
 
-    public class_a() {
+    public javaMicroMIDlet() {
     }
 
     protected final void startApp() throws MIDletStateChangeException {

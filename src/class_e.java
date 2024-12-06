@@ -194,22 +194,22 @@ public class class_e extends FullCanvas implements Runnable {
 
     private void method_e(Graphics var1) {
         if (field_S) {
-            int var2 = 40 + class_f.method_a2(30);
-            int var3 = 50 + class_f.method_a2(20);
+            int var2 = 40 + DataTools.method_a2(30);
+            int var3 = 50 + DataTools.method_a2(20);
             var1.drawImage(field_aE[0], var2, var3, 20);
             field_S = false;
         }
 
         if (field_ao) {
-            int var4 = 40 + class_f.method_a2(30);
-            int var6 = 50 + class_f.method_a2(22);
+            int var4 = 40 + DataTools.method_a2(30);
+            int var6 = 50 + DataTools.method_a2(22);
             var1.drawImage(field_aE[1], var4, var6, 20);
             field_ao = false;
         }
 
         if (field_am) {
-            int var5 = 50 + class_f.method_a2(2);
-            int var7 = 80 + class_f.method_a2(2);
+            int var5 = 50 + DataTools.method_a2(2);
+            int var7 = 80 + DataTools.method_a2(2);
             var1.drawImage(field_aE[2], var5, var7, 20);
             field_am = false;
         }
@@ -238,7 +238,7 @@ public class class_e extends FullCanvas implements Runnable {
                 int var9 = field_n[var15][var7][1];
                 int var10 = field_n[var15][var7][2];
                 int var11 = field_n[var15][var7][3];
-                if (class_f.method_a8((byte)1, var2.method_a13(var10, var11, var3))) {
+                if (DataTools.doBytesShareBits((byte)1, var2.method_a13(var10, var11, var3))) {
                     int var4 = this.method_a2(var8, var9, -1);
                     this.method_a(var1, var4, var5);
                     break;
@@ -254,7 +254,7 @@ public class class_e extends FullCanvas implements Runnable {
                 int var19 = field_n[9 - var16][var17][1];
                 int var20 = -field_n[9 - var16][var17][2];
                 int var12 = field_n[9 - var16][var17][3];
-                if (class_f.method_a8((byte)1, var2.method_a13(var20, var12, var3))) {
+                if (DataTools.doBytesShareBits((byte)1, var2.method_a13(var20, var12, var3))) {
                     int var13 = this.method_a2(var18, var19, 1);
                     this.method_a(var1, var13, var14);
                     break;
@@ -327,7 +327,7 @@ public class class_e extends FullCanvas implements Runnable {
         class_i var1 = this.field_ax.method_b8();
         byte[][] var2 = this.field_ax.field_ae;
         byte var3 = var1.method_a13(0, 1, var2);
-        if (class_f.method_a8((byte)32, var3)) {
+        if (DataTools.doBytesShareBits((byte)32, var3)) {
             int var4 = this.field_ax.method_r();
             field_W = true;
             String[] var5 = field_i[var4];
@@ -1021,7 +1021,7 @@ public class class_e extends FullCanvas implements Runnable {
             this.method_g1();
             this.field_au = new Thread(this);
             this.field_au.start();
-            ESGame.method_c3("after starting game thread");
+            ESGame.debugPrint("after starting game thread");
         } catch (Throwable var2) {
             System.out.println(" start error:");
             var2.printStackTrace();
@@ -1480,7 +1480,7 @@ public class class_e extends FullCanvas implements Runnable {
             } else {
                 this.field_ax.field_b = (byte)var3;
                 String var4 = class_b.method_c(var3).field_c;
-                String[] var5 = class_f.method_c2(var4);
+                String[] var5 = DataTools.method_c2(var4);
                 Object var6 = null;
                 String[] var7;
                 if (var5.length == 1) {
@@ -1533,7 +1533,7 @@ public class class_e extends FullCanvas implements Runnable {
     private String[] method_k1() {
         int var1 = this.field_ax.field_p - 1;
         int var2 = Math.abs(this.field_ax.field_H[var1]);
-        String[] var3 = class_f.method_c2(class_a.method_d(var2));
+        String[] var3 = DataTools.method_c2(class_a.method_d(var2));
         String[] var4 = new String[]{"", ""};
         if (var3.length >= 3) {
             var4[0] = var3[0] + " " + var3[1];
@@ -1575,7 +1575,7 @@ public class class_e extends FullCanvas implements Runnable {
             this.field_H.field_aq.method_e2(var2);
             this.field_H.field_aq.field_c = this.field_H.field_R[var1];
             this.field_H.field_aq.field_N = var1;
-            runImageLoader var3 = (runImageLoader)this.field_H.field_aq.field_c;
+            RunImageLoader var3 = (RunImageLoader)this.field_H.field_aq.field_c;
             String var4 = var3.field_M;
             String var5 = var3.method_t();
             short var6 = 0;
@@ -1587,29 +1587,29 @@ public class class_e extends FullCanvas implements Runnable {
                 var6 = class_k.field_g;
             }
 
-            var5 = class_f.replacePOSWithInt(var4, "<TAG>", var6);
+            var5 = DataTools.replacePOSWithInt(var4, "<TAG>", var6);
             var3.method_e2(var5);
             this.field_H.method_a12(this.field_H.field_aq);
             field_al = false;
         } else if (var1 == 4) {
             System.out.println("BENECA has nothing more to say!");
-            runImageLoader var7 = this.field_H.field_R[4];
+            RunImageLoader var7 = this.field_H.field_R[4];
             String var9 = var7.field_M;
             String var12 = var7.method_t();
             short var16 = 0;
             var16 = class_k.field_a;
-            var12 = class_f.replacePOSWithInt(var9, "<TAG>", var16);
+            var12 = DataTools.replacePOSWithInt(var9, "<TAG>", var16);
             var7.method_e2(var12);
             this.field_H.method_a12(var7);
             field_al = false;
         } else if (var1 == 5) {
             System.out.println("HELGA has nothing more to say!");
-            runImageLoader var8 = this.field_H.field_R[5];
+            RunImageLoader var8 = this.field_H.field_R[5];
             String var10 = var8.field_M;
             String var14 = var8.method_t();
             short var18 = 0;
             var18 = class_k.field_g;
-            var14 = class_f.replacePOSWithInt(var10, "<TAG>", var18);
+            var14 = DataTools.replacePOSWithInt(var10, "<TAG>", var18);
             var8.method_e2(var14);
             this.field_H.method_a12(var8);
             field_al = false;
@@ -1672,7 +1672,7 @@ public class class_e extends FullCanvas implements Runnable {
     }
 
     private boolean method_o() {
-        int var1 = class_f.method_a2(10);
+        int var1 = DataTools.method_a2(10);
         return var1 == 1;
     }
 
@@ -1683,7 +1683,7 @@ public class class_e extends FullCanvas implements Runnable {
             if (this.field_ax.field_ah < 0) {
                 this.field_ax.field_ah = 0;
                 byte var3 = 3;
-                this.field_ax.field_A = (byte)class_f.method_c(var3, this.field_ax.field_A);
+                this.field_ax.field_A = (byte) DataTools.clearSingleBit(var3, this.field_ax.field_A);
             }
         }
 
@@ -1693,7 +1693,7 @@ public class class_e extends FullCanvas implements Runnable {
             if (this.field_ax.field_F < 0) {
                 this.field_ax.field_F = 0;
                 byte var4 = 4;
-                this.field_ax.field_A = (byte)class_f.method_c(var4, this.field_ax.field_A);
+                this.field_ax.field_A = (byte) DataTools.clearSingleBit(var4, this.field_ax.field_A);
             }
         }
 
@@ -1703,7 +1703,7 @@ public class class_e extends FullCanvas implements Runnable {
             if (this.field_ax.field_ap < 0) {
                 this.field_ax.field_ap = 0;
                 byte var5 = 6;
-                this.field_ax.field_A = (byte)class_f.method_c(var5, this.field_ax.field_A);
+                this.field_ax.field_A = (byte) DataTools.clearSingleBit(var5, this.field_ax.field_A);
             }
         }
 

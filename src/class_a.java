@@ -108,7 +108,7 @@ public class class_a {
     }
 
     static void method_c1() throws Exception {
-        DataInputStream var0 = class_f.method_a1("/itemsin.dat");
+        DataInputStream var0 = DataTools.method_a1("/itemsin.dat");
         field_n = var0.readShort();
         field_g = new String[field_n];
 
@@ -157,7 +157,7 @@ public class class_a {
     }
 
     static void method_d1() throws Exception {
-        DataInputStream var0 = class_f.method_a1("/droppeditemsin.dat");
+        DataInputStream var0 = DataTools.method_a1("/droppeditemsin.dat");
         short var1 = var0.readShort();
         field_d = (byte)var1;
         System.out.println("numTableRows=" + field_d);
@@ -193,11 +193,11 @@ public class class_a {
     }
 
     static int method_a4(Random var0, int var1, int var2) {
-        int var3 = class_f.method_a3(var0, 100);
+        int var3 = DataTools.method_a3(var0, 100);
         int var4 = var3;
 
         for(int var5 = 1; var5 < var2; ++var5) {
-            var3 = class_f.method_a3(var0, 100);
+            var3 = DataTools.method_a3(var0, 100);
             if (var3 > var4) {
                 var4 = var3;
             }
@@ -214,7 +214,7 @@ public class class_a {
             var6 = 4;
         }
 
-        int var7 = class_f.method_a3(var0, 10);
+        int var7 = DataTools.method_a3(var0, 10);
         var7 += var1 - 2;
         if (var7 > field_d - 1) {
             var7 = field_d - 1;

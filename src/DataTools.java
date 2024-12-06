@@ -10,11 +10,11 @@ import java.io.DataInputStream;
 import java.io.InputStream;
 import java.util.Random;
 
-public class class_f {
+public class DataTools {
     private static Object field_b = new Object();
     static int field_a = 0;
 
-    private class_f() {
+    private DataTools() {
     }
 
     static byte[] method_a(int var0, InputStream var1) throws Exception {
@@ -43,6 +43,7 @@ public class class_f {
         return ESGame.method_a10(var0);
     }
 
+    //something to do with RNG
     static int method_a2(int var0) {
         return ESGame.method_f1(var0);
     }
@@ -51,10 +52,11 @@ public class class_f {
         return ESGame.method_a11(var0, var1);
     }
 
-    static String method_b1(int var0, int var1) {
+    static String commaBetweenInts(int var0, int var1) {
         return var0 + "," + var1;
     }
 
+    //replace part of string. NOT replace piece of shit.
     static String replacePOSWithInt(String fullString, String partToReplace, int replaceWithInt) {
         String var3 = "" + replaceWithInt; //turn int replaceWithInt into a string
         return replacePartOfString(fullString, partToReplace, var3);
@@ -96,50 +98,55 @@ public class class_f {
         }
     }
 
-    static int method_a7(int var0, int var1) {
-        var1 |= 1 << var0;
-        return var1;
+
+    static int setSingleBit(int position, int input) {
+        input |= 1 << position;
+        return input;
     }
 
-    static int method_c(int var0, int var1) {
-        var1 &= ~(1 << var0);
-        return var1;
+    static int clearSingleBit(int position, int input) {
+        input &= ~(1 << position);
+        return input;
     }
 
-    static byte method_b2(byte var0, byte var1) {
-        var1 = (byte)(var1 | var0);
-        return var1;
+    static byte setManyBits(byte setMask, byte input) {
+        input = (byte)(input | setMask);
+        return input;
     }
 
-    static byte method_c1(byte var0, byte var1) {
-        var1 = (byte)(var1 & ~var0);
-        return var1;
+    static byte clearManyBits(byte clearMask, byte input) {
+        input = (byte)(input & ~clearMask);
+        return input;
     }
 
-    static boolean method_a8(byte var0, byte var1) {
+    //if the bytes do not share any bits, the & will be zero, and the output will be false
+    //if the bytes do share any bits, the output will be true
+    static boolean doBytesShareBits(byte var0, byte var1) {
         return (var1 & var0) != 0;
     }
 
     static long method_a9(byte[] var0, int var1) {
         long var2 = 0L;
 
-        for(int var4 = 0; var4 < 8; ++var4) {
-            long var5 = (long)(var0[var4 + var1] & 255);
-            int var7 = (7 - var4) * 8;
+        for(int i = 0; i < 8; ++i) {
+            long var5 = (long)(var0[i + var1] & 255);
+            int var7 = (7 - i) * 8;
             var2 |= var5 << var7;
         }
 
         return var2;
     }
 
-    public static String[] method_c2(String var0) {
-        var0 = var0.trim();
+    //this is for removing spaces or something? i think?
+    public static String[] method_c2(String inputString) {
+        //remove whitespace from string
+        inputString = inputString.trim();
         int var1 = 1;
-        int var2 = var0.length();
+        int inputLength = inputString.length();
         boolean var3 = false;
 
-        for(int var4 = 0; var4 < var2; ++var4) {
-            if (var0.charAt(var4) == ' ') {
+        for(int i = 0; i < inputLength; ++i) {
+            if (inputString.charAt(i) == ' ') {
                 if (!var3) {
                     ++var1;
                     var3 = true;
@@ -153,10 +160,10 @@ public class class_f {
         int var6 = 0;
         int var7 = 0;
 
-        for(int var8 = 0; var8 < var2; ++var8) {
-            if (var0.charAt(var8) == ' ') {
+        for(int var8 = 0; var8 < inputLength; ++var8) {
+            if (inputString.charAt(var8) == ' ') {
                 if (!var3) {
-                    var5[var7++] = var0.substring(var6, var8);
+                    var5[var7++] = inputString.substring(var6, var8);
                     var6 = var8 + 1;
                     var3 = true;
                 } else {
@@ -167,7 +174,7 @@ public class class_f {
             }
         }
 
-        var5[var7] = var0.substring(var6, var2);
+        var5[var7] = inputString.substring(var6, inputLength);
         return var5;
     }
 }
