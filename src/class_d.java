@@ -230,7 +230,7 @@ public class class_d {
             var4 = var3;
             var5 = var2;
         } else {
-            int var8 = ESGame.method_h1(2);
+            int var8 = ESGame.randomIntZeroToLessThanN(2);
             if (var8 == 0) {
                 var4 = var2;
                 var5 = var3;
@@ -298,8 +298,8 @@ public class class_d {
         int var8 = var1.method_I() + var6 * 5;
         var7 = Math.min(Math.max(var7, 10), 95);
         var8 = Math.min(Math.max(var8, 10), 95);
-        int var9 = DataTools.method_a2(100);
-        int var10 = DataTools.method_a2(100);
+        int var9 = DataTools.randomIntOneToN(100);
+        int var10 = DataTools.randomIntOneToN(100);
         boolean var11 = var9 <= var7;
         boolean var12 = var10 <= var8;
         byte var13 = 0;
@@ -343,7 +343,7 @@ public class class_d {
             if (var13 < 3) {
                 this.field_f = 1;
             } else {
-                if (DataTools.method_a2(100) <= 30) {
+                if (DataTools.randomIntOneToN(100) <= 30) {
                     byte var18 = field_e[this.field_l - 1][11];
                     if (var18 > 0) {
                         int var19 = var18 - 1;
@@ -369,8 +369,8 @@ public class class_d {
         }
     }
 
-    static void method_g() throws Exception {
-        DataInputStream var0 = DataTools.method_a1("/monstersin.dat");
+    static void initMonsterList() throws Exception {
+        DataInputStream var0 = DataTools.readDatFileAsInputStream("/monstersin.dat");
         field_j = 0;
         field_d = var0.readInt();
         field_h = new String[field_d];
@@ -436,12 +436,12 @@ public class class_d {
         }
 
         byte var3 = field_e[this.field_l - 1][16];
-        int var4 = DataTools.method_a2(100);
+        int var4 = DataTools.randomIntOneToN(100);
         boolean var5 = var4 <= var2;
         if (var5 || var1) {
             class_i var6 = ESGame.field_u[this.field_n - 1];
             byte var7 = var6.field_a;
-            int var8 = class_a.method_a4(ESGame.field_P, var7, var3);
+            int var8 = class_a.getRandomItem(ESGame.systemRNG, var7, var3);
             byte var9 = (byte)(var8 & 255);
             byte var10 = 0;
             if (var9 == 86) {
@@ -465,7 +465,7 @@ public class class_d {
     }
 
     static class_d method_a10(class_i var0) {
-        return method_a11(ESGame.field_P, var0, -1);
+        return method_a11(ESGame.systemRNG, var0, -1);
     }
 
     static class_d method_a11(Random var0, class_i var1, int var2) {
@@ -481,7 +481,7 @@ public class class_d {
                 var5 = 36;
             }
 
-            int var6 = ESGame.method_a11(var0, 10);
+            int var6 = ESGame.seededRandomIntOneToN(var0, 10);
             byte var7 = 0;
             if (var6 <= 4) {
                 var7 = 0;

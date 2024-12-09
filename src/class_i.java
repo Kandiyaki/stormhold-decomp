@@ -70,13 +70,13 @@ public class class_i {
         this.field_s = (short)this.field_x[4];
         this.field_v = (short)this.field_x[5];
         int var6 = 6;
-        if (class_k.field_d) {
+        if (ESPersonality.field_d) {
             ++var6;
         }
 
         for(int var7 = 0; var7 < var6; ++var7) {
-            byte[] var10000 = this.field_w[class_k.field_j[var7]];
-            byte var10001 = class_k.field_i[var7];
+            byte[] var10000 = this.field_w[ESPersonality.field_j[var7]];
+            byte var10001 = ESPersonality.field_i[var7];
             var10000[var10001] = (byte)(var10000[var10001] | 32);
         }
 
@@ -195,7 +195,7 @@ public class class_i {
 
         for(int var5 = 0; var5 < var2; ++var5) {
             var3[var5] = var5;
-            int var6 = DataTools.method_a3(this.field_e, 1000);
+            int var6 = DataTools.seededRandomIntOneToN(this.field_e, 1000);
             var4[var5] = var6;
         }
 
@@ -236,7 +236,7 @@ public class class_i {
                 var1 = class_a.method_a3(this.field_e, var3);
                 var4 = false;
             } else {
-                var1 = class_a.method_a4(this.field_e, this.field_a, 2);
+                var1 = class_a.getRandomItem(this.field_e, this.field_a, 2);
             }
 
             short var9 = (short)(var7[2] - var7[0] + 1);
@@ -336,9 +336,9 @@ public class class_i {
             var15 = this.field_w[var11[0]];
         }
 
-        if (this.field_o == 1 && class_k.field_d) {
-            byte var13 = class_k.field_j[6];
-            byte var14 = class_k.field_i[6];
+        if (this.field_o == 1 && ESPersonality.field_d) {
+            byte var13 = ESPersonality.field_j[6];
+            byte var14 = ESPersonality.field_i[6];
             var15 = this.field_w[var13];
             var15[var14] = (byte)(var15[var14] | 32);
         }
@@ -831,10 +831,10 @@ public class class_i {
                         }
                     }
                 } else {
-                    for(int var24 = 0; var24 < 7 && (var24 != 6 || class_k.field_d); ++var24) {
-                        if (class_k.field_b[var24]) {
-                            int var29 = var17 * (class_k.field_i[var24] - var2) + var6;
-                            int var36 = var6 - var17 * (class_k.field_j[var24] - var1);
+                    for(int var24 = 0; var24 < 7 && (var24 != 6 || ESPersonality.field_d); ++var24) {
+                        if (ESPersonality.field_b[var24]) {
+                            int var29 = var17 * (ESPersonality.field_i[var24] - var2) + var6;
+                            int var36 = var6 - var17 * (ESPersonality.field_j[var24] - var1);
                             boolean var43 = true;
                             if (var29 >= 0 && var29 < var4 && var36 >= 0 && var36 < var4 && var43) {
                                 var5[var29][var36] = (byte)(var5[var29][var36] | 4);
@@ -897,10 +897,10 @@ public class class_i {
                     }
                 }
             } else {
-                for(int var21 = 0; var21 < 7 && (var21 != 6 || class_k.field_d); ++var21) {
-                    if (class_k.field_b[var21]) {
-                        int var26 = var7 * (class_k.field_j[var21] - var1) + var6;
-                        int var32 = var7 * (class_k.field_i[var21] - var2) + var6;
+                for(int var21 = 0; var21 < 7 && (var21 != 6 || ESPersonality.field_d); ++var21) {
+                    if (ESPersonality.field_b[var21]) {
+                        int var26 = var7 * (ESPersonality.field_j[var21] - var1) + var6;
+                        int var32 = var7 * (ESPersonality.field_i[var21] - var2) + var6;
                         boolean var39 = true;
                         if (var26 >= 0 && var26 < var4 && var32 >= 0 && var32 < var4 && var39) {
                             var5[var26][var32] = (byte)(var5[var26][var32] | 4);
@@ -1027,7 +1027,7 @@ public class class_i {
     }
 
     static void method_g1() throws Exception {
-        DataInputStream var0 = DataTools.method_a1("/dungnamesin.dat");
+        DataInputStream var0 = DataTools.readDatFileAsInputStream("/dungnamesin.dat");
         field_c = new String[37][2];
 
         for(int var1 = 0; var1 < 37; ++var1) {

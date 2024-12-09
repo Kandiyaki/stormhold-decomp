@@ -127,7 +127,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
     static Image field_aa;
     static Image field_aA;
     boolean field_ac;
-    static Random field_P;
+    static Random systemRNG;
     private static boolean field_j = false;
 
     public ESGame() {
@@ -270,16 +270,16 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
         method_I();
         class_i.method_g1();
         this.method_a3("Right before character load", true);
-        class_j.method_u();
+        class_j.tryLoadCharInfo();
         this.method_a3("ESPersonality load", true);
-        class_k.method_e();
+        ESPersonality.method_e();
         this.field_ay.field_m = 5;
         this.method_a3("Item load", true);
-        .javaMicroMIDlet.method_e1();
+        class_a.initItemList();
         this.method_a3("Spell load", true);
-        class_b.method_a1();
+        spell.initSpellList();
         this.method_a3("Monster load", true);
-        class_d.method_g();
+        class_d.initMonsterList();
         this.field_ay.field_m = 10;
         this.method_a3("End of allocESGame", true);
     }
@@ -417,7 +417,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
         Object var4 = null;
         this.field_U.method_a1("Main Menu", var3, (Vector)var4, false);
         this.field_az = new RunImageLoader(this, 5, 3);
-        String[] var5 = class_j.field_K;
+        String[] var5 = class_j.charClass;
         this.field_az.method_a4("New Game", "Select a Class:", var5, (Vector)null);
         this.field_ay.field_m = 35;
         this.method_a3("After newGameUI", true);
@@ -502,9 +502,9 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
         System.gc();
         RunImageLoader var2 = new RunImageLoader(this, 5, 22);
         var2.field_N = var1;
-        String[] var3 = new String[this.field_k.field_p];
+        String[] var3 = new String[this.field_k.nItems];
 
-        for(int var4 = 0; var4 < this.field_k.field_p; ++var4) {
+        for(int var4 = 0; var4 < this.field_k.nItems; ++var4) {
             int var5 = Math.abs(this.field_k.field_H[var4]);
             if (this.field_k.method_C(var4)) {
                 var3[var4] = "E:" + .javaMicroMIDlet.method_d(var5);
@@ -513,7 +513,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
             }
         }
 
-        var2.method_a5(class_k.field_s[var1], "Give What?", var3, (Vector)null, true);
+        var2.method_a5(ESPersonality.field_s[var1], "Give What?", var3, (Vector)null, true);
         var2.field_s = this.field_av;
         return var2;
     }
@@ -528,13 +528,13 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
 
         for(int var5 = 0; var5 < 14; ++var5) {
             int var6 = this.field_k.method_b3(var5, false);
-            String var7 = class_j.field_E[var5] + " (<TAG>)";
-            if (class_k.method_c1(var1, var5)) {
+            String var7 = class_j.charSkills[var5] + " (<TAG>)";
+            if (ESPersonality.method_c1(var1, var5)) {
                 var3[var4++] = DataTools.replacePOSWithInt(var7, "<TAG>", var6);
             }
         }
 
-        var2.method_a5(class_k.field_s[var1], "Train What?", var3, (Vector)null, true);
+        var2.method_a5(ESPersonality.field_s[var1], "Train What?", var3, (Vector)null, true);
         var2.field_s = this.field_av;
         return var2;
     }
@@ -545,7 +545,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
         RunImageLoader var2 = new RunImageLoader(this, 5, 27);
         var2.field_N = var1;
         String[] var3 = .javaMicroMIDlet.method_b1();
-        var2.method_a5(class_k.field_s[var1], "Take What?", var3, (Vector)null, true);
+        var2.method_a5(ESPersonality.field_s[var1], "Take What?", var3, (Vector)null, true);
         var2.field_s = null;
         return var2;
     }
@@ -555,14 +555,14 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
         debugPrint("Start of newEnchantWhat");
         RunImageLoader var2 = new RunImageLoader(this, 5, 350);
         var2.field_N = var1;
-        String[] var3 = new String[this.field_k.field_p];
+        String[] var3 = new String[this.field_k.nItems];
 
-        for(int var4 = 0; var4 < this.field_k.field_p; ++var4) {
+        for(int var4 = 0; var4 < this.field_k.nItems; ++var4) {
             int var5 = Math.abs(this.field_k.field_H[var4]);
             var3[var4] = .javaMicroMIDlet.method_d(var5);
         }
 
-        var2.method_a5(class_k.field_s[var1], "Enchant What?", var3, (Vector)null, true);
+        var2.method_a5(ESPersonality.field_s[var1], "Enchant What?", var3, (Vector)null, true);
         var2.field_s = this.field_av;
         return var2;
     }
@@ -576,9 +576,9 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
     private RunImageLoader method_c1() {
         System.gc();
         RunImageLoader var1 = new RunImageLoader(this, 5, 33);
-        String[] var2 = new String[this.field_k.field_p];
+        String[] var2 = new String[this.field_k.nItems];
 
-        for(int var3 = 0; var3 < this.field_k.field_p; ++var3) {
+        for(int var3 = 0; var3 < this.field_k.nItems; ++var3) {
             byte var4 = this.field_k.field_H[var3];
             System.out.println("itemid is " + var4);
             if (var4 < 0) {
@@ -720,7 +720,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
                 }
             } else if (field_ax.field_B == 7) {
                 this.field_aR = new RunImageLoader(this, 4, 101);
-                this.field_aR.method_a3("Introduction", class_k.field_k[7][3], true);
+                this.field_aR.method_a3("Introduction", ESPersonality.message[7][3], true);
                 this.method_a12(this.field_aR);
             } else if (field_ax.field_B == 101) {
                 if (var1 == RunImageLoader.field_I) {
@@ -739,7 +739,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
                     if (var1 == RunImageLoader.field_u) {
                         int var10 = field_ax.field_N;
                         int var32 = field_ax.method_a13();
-                        int var41 = class_k.method_b2(var10, var32);
+                        int var41 = ESPersonality.method_b2(var10, var32);
                         this.field_ae = this.method_a2(field_ax, var10, 21, 5, var41);
                         this.method_a12(this.field_ae);
                     } else if (var1 == RunImageLoader.field_P) {
@@ -933,8 +933,8 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
                                 String var26 = field_ax.method_p();
                                 field_l[field_ax.field_N] = -1;
 
-                                for(int var38 = 0; var38 < class_j.field_y.length; ++var38) {
-                                    if (var26.equals(class_j.field_y[var38])) {
+                                for(int var38 = 0; var38 < class_j.charStats.length; ++var38) {
+                                    if (var26.equals(class_j.charStats[var38])) {
                                         field_l[field_ax.field_N] = var38;
                                         break;
                                     }
@@ -1061,8 +1061,8 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
                     this.field_z = this.method_b(var4);
                     this.method_a12(this.field_z);
                 } else if (var3 == 1) {
-                    if (this.field_k.field_p <= 0) {
-                        this.field_ap.method_a17(class_k.field_s[var4]);
+                    if (this.field_k.nItems <= 0) {
+                        this.field_ap.method_a17(ESPersonality.field_s[var4]);
                         this.field_ap.method_e2("You have nothing to give me!");
                         this.method_a12(this.field_ap);
                     } else {
@@ -1082,8 +1082,8 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
                 break;
             case 4:
                 if (var3 == 0) {
-                    if (this.field_k.field_p <= 0) {
-                        this.field_ap.method_a17(class_k.field_s[var4]);
+                    if (this.field_k.nItems <= 0) {
+                        this.field_ap.method_a17(ESPersonality.field_s[var4]);
                         this.field_ap.method_e2("You have nothing to give me!");
                         this.method_a12(this.field_ap);
                     } else {
@@ -1099,8 +1099,8 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
                 if (var3 == 0) {
                     this.method_x();
                 } else if (var3 == 1) {
-                    if (this.field_k.field_p <= 0) {
-                        this.field_ap.method_a17(class_k.field_s[var4]);
+                    if (this.field_k.nItems <= 0) {
+                        this.field_ap.method_a17(ESPersonality.field_s[var4]);
                         this.field_ap.method_e2("You have nothing to give me!");
                         this.method_a12(this.field_ap);
                     } else {
@@ -1130,8 +1130,8 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
     private RunImageLoader method_a2(RunImageLoader var1, int var2, int var3, int var4, int var5) {
         RunImageLoader var6 = new RunImageLoader(this, 4, var3);
         var6.method_a3("NPC name here", "NPC text here", true);
-        String var7 = class_k.method_a6(this.field_k, var2, var4, var5);
-        var6.method_a17(class_k.field_s[var2]);
+        String var7 = ESPersonality.method_a6(this.field_k, var2, var4, var5);
+        var6.method_a17(ESPersonality.field_s[var2]);
         var6.method_e2(var7);
         var6.field_N = var2;
         return var6;
@@ -1157,7 +1157,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
             int var5 = var3.getNumRecords();
             byte[] var6 = var3.getRecord(1);
             this.field_k = class_j.method_a3(var6, true);
-            this.field_k.field_ai = this;
+            this.field_k.game = this;
             field_aQ.field_m = 20;
             field_aQ.method_c2();
             field_aQ.method_f1();
@@ -1414,43 +1414,43 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
         class_d.field_j = var1.readShort();
 
         for(int var2 = 0; var2 < 7; ++var2) {
-            class_k.field_b[var2] = var1.readBoolean();
+            ESPersonality.field_b[var2] = var1.readBoolean();
         }
 
         for(int var3 = 0; var3 < 7; ++var3) {
-            class_k.field_q[var3] = var1.readBoolean();
+            ESPersonality.field_q[var3] = var1.readBoolean();
         }
 
         for(int var4 = 0; var4 < 4; ++var4) {
-            class_k.field_r[var4] = var1.readShort();
+            ESPersonality.field_r[var4] = var1.readShort();
         }
 
         for(int var5 = 0; var5 < 4; ++var5) {
-            class_k.field_p[var5] = var1.readShort();
+            ESPersonality.field_p[var5] = var1.readShort();
         }
 
         for(int var6 = 0; var6 < 4; ++var6) {
-            class_k.field_h[var6] = var1.readShort();
+            ESPersonality.field_h[var6] = var1.readShort();
         }
 
         for(int var7 = 0; var7 < 4; ++var7) {
-            class_k.field_c[var7] = var1.readByte();
+            ESPersonality.field_c[var7] = var1.readByte();
         }
 
         for(int var8 = 0; var8 < 4; ++var8) {
-            class_k.field_n[var8] = var1.readByte();
+            ESPersonality.field_n[var8] = var1.readByte();
         }
 
-        class_k.field_f = var1.readByte();
-        class_k.field_d = var1.readBoolean();
-        class_k.field_a = var1.readShort();
-        class_k.field_g = var1.readShort();
-        class_k.field_l = var1.readBoolean();
+        ESPersonality.field_f = var1.readByte();
+        ESPersonality.field_d = var1.readBoolean();
+        ESPersonality.field_a = var1.readShort();
+        ESPersonality.field_g = var1.readShort();
+        ESPersonality.field_l = var1.readBoolean();
 
         for(int var9 = 0; var9 < 7; ++var9) {
-            if (!class_k.field_b[var9]) {
+            if (!ESPersonality.field_b[var9]) {
                 class_i var10 = field_u[0];
-                var10.field_w[class_k.field_j[var9]][class_k.field_i[var9]] = DataTools.clearManyBits((byte)32, var10.field_w[class_k.field_j[var9]][class_k.field_i[var9]]);
+                var10.field_w[ESPersonality.field_j[var9]][ESPersonality.field_i[var9]] = DataTools.clearManyBits((byte)32, var10.field_w[ESPersonality.field_j[var9]][ESPersonality.field_i[var9]]);
             }
         }
 
@@ -1459,42 +1459,42 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
     private static byte[] method_k() throws Exception {
         ByteArrayOutputStream var0 = new ByteArrayOutputStream(60);
         DataOutputStream var1 = new DataOutputStream(var0);
-        var1.writeShort(.class_a.field_i);
+        var1.writeShort(class_a.field_i);
         var1.writeShort(class_d.field_j);
 
         for(int var2 = 0; var2 < 7; ++var2) {
-            var1.writeBoolean(class_k.field_b[var2]);
+            var1.writeBoolean(ESPersonality.field_b[var2]);
         }
 
         for(int var3 = 0; var3 < 7; ++var3) {
-            var1.writeBoolean(class_k.field_q[var3]);
+            var1.writeBoolean(ESPersonality.field_q[var3]);
         }
 
         for(int var4 = 0; var4 < 4; ++var4) {
-            var1.writeShort(class_k.field_r[var4]);
+            var1.writeShort(ESPersonality.field_r[var4]);
         }
 
         for(int var5 = 0; var5 < 4; ++var5) {
-            var1.writeShort(class_k.field_p[var5]);
+            var1.writeShort(ESPersonality.field_p[var5]);
         }
 
         for(int var6 = 0; var6 < 4; ++var6) {
-            var1.writeShort(class_k.field_h[var6]);
+            var1.writeShort(ESPersonality.field_h[var6]);
         }
 
         for(int var7 = 0; var7 < 4; ++var7) {
-            var1.writeByte(class_k.field_c[var7]);
+            var1.writeByte(ESPersonality.field_c[var7]);
         }
 
         for(int var8 = 0; var8 < 4; ++var8) {
-            var1.writeByte(class_k.field_n[var8]);
+            var1.writeByte(ESPersonality.field_n[var8]);
         }
 
-        var1.writeByte(class_k.field_f);
-        var1.writeBoolean(class_k.field_d);
-        var1.writeShort(class_k.field_a);
-        var1.writeShort(class_k.field_g);
-        var1.writeBoolean(class_k.field_l);
+        var1.writeByte(ESPersonality.field_f);
+        var1.writeBoolean(ESPersonality.field_d);
+        var1.writeShort(ESPersonality.field_a);
+        var1.writeShort(ESPersonality.field_g);
+        var1.writeBoolean(ESPersonality.field_l);
         byte[] var9 = var0.toByteArray();
         return var9;
     }
@@ -1993,7 +1993,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
     RunImageLoader newEndOfGameUI() {
         System.gc();
         debugPrint("Start of newEndOfGameUI");
-        String var1 = class_k.field_k[7][4];
+        String var1 = ESPersonality.message[7][4];
         RunImageLoader var2 = new RunImageLoader(this, 4, 200);
         var2.method_a2("Victory!", var1);
         var2.field_c = this.newGameOverUI();
@@ -2003,32 +2003,33 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
     private RunImageLoader newGameOverUI() {
         System.gc();
         debugPrint("Start of newGameOverUI");
-        String var1 = class_k.field_k[7][5];
+        String var1 = ESPersonality.message[7][5];
         RunImageLoader var2 = new RunImageLoader(this, 4, 201);
         var2.method_a2("Game Over", var1);
         var2.field_c = this.field_U;
         return var2;
     }
 
-    static DataInputStream method_a10(String var0) throws Exception {
-        InputStream var1 = (new Object()).getClass().getResourceAsStream(DataTools.method_b(var0));
-        if (var1 == null) {
+    static DataInputStream readFileAsInputStream(String path) throws Exception {
+        InputStream inputFile = (new Object()).getClass().getResourceAsStream(DataTools.ensureStartsWithSlash(path));
+        if (inputFile == null) {
             return null;
         } else {
-            byte[] var2 = DataTools.method_a(var1.available(), var1);
-            return new DataInputStream(new ByteArrayInputStream(var2));
+            byte[] fileBytes = DataTools.readBytes(inputFile.available(), inputFile);
+            return new DataInputStream(new ByteArrayInputStream(fileBytes));
         }
     }
 
-    static int method_h1(int var0) {
-        return Math.abs(field_P.nextInt() % var0);
+    static int randomIntZeroToLessThanN(int var0) {
+        return Math.abs(systemRNG.nextInt() % var0);
     }
 
-    static int method_f1(int var0) {
-        return 1 + Math.abs(field_P.nextInt() % var0);
+
+    static int randomIntOneToN(int var0) {
+        return 1 + Math.abs(systemRNG.nextInt() % var0);
     }
 
-    static int method_a11(Random var0, int var1) {
+    static int seededRandomIntOneToN(Random var0, int var1) {
         return 1 + Math.abs(var0.nextInt() % var1);
     }
 
@@ -2070,7 +2071,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
     }
 
     private static void method_I() throws Exception {
-        DataInputStream var0 = DataTools.method_a1("/geomin.dat");
+        DataInputStream var0 = DataTools.readDatFileAsInputStream("/geomin.dat");
         field_ai = new byte[37][6];
 
         for(int var1 = 0; var1 < 37; ++var1) {
@@ -2083,7 +2084,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
 
     private static void method_C() throws Exception {
         InputStream var0 = (new Object()).getClass().getResourceAsStream("/monsterfilenamesin.dat");
-        byte[] var1 = DataTools.method_a(var0.available(), var0);
+        byte[] var1 = DataTools.readBytes(var0.available(), var0);
         DataInputStream var2 = new DataInputStream(new ByteArrayInputStream(var1));
         field_T = new String[5][7];
 
@@ -2110,67 +2111,67 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
     }
 
     private void method_u() {
-        field_as[0] = class_k.field_k[7][6];
-        field_as[1] = class_k.field_k[7][8];
-        field_as[2] = class_k.field_k[7][11];
-        field_as[3] = class_k.field_k[7][13];
-        field_as[4] = class_k.field_k[7][19];
-        field_as[5] = class_k.field_k[7][21];
-        field_as[6] = class_k.field_k[7][24];
-        field_as[7] = class_k.field_k[7][29];
-        field_as[8] = class_k.field_k[7][31];
-        field_as[9] = class_k.field_k[7][34];
-        field_as[10] = class_k.field_k[7][37];
-        field_as[11] = class_k.field_k[7][39];
+        field_as[0] = ESPersonality.message[7][6];
+        field_as[1] = ESPersonality.message[7][8];
+        field_as[2] = ESPersonality.message[7][11];
+        field_as[3] = ESPersonality.message[7][13];
+        field_as[4] = ESPersonality.message[7][19];
+        field_as[5] = ESPersonality.message[7][21];
+        field_as[6] = ESPersonality.message[7][24];
+        field_as[7] = ESPersonality.message[7][29];
+        field_as[8] = ESPersonality.message[7][31];
+        field_as[9] = ESPersonality.message[7][34];
+        field_as[10] = ESPersonality.message[7][37];
+        field_as[11] = ESPersonality.message[7][39];
     }
 
     private void method_a13() {
         StringBuffer var1 = new StringBuffer(1200);
-        var1.append(class_k.field_k[7][7]);
+        var1.append(ESPersonality.message[7][7]);
         field_o[0] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][9]);
-        var1.append(class_k.field_k[7][10]);
+        var1.append(ESPersonality.message[7][9]);
+        var1.append(ESPersonality.message[7][10]);
         field_o[1] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][12]);
+        var1.append(ESPersonality.message[7][12]);
         field_o[2] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][14]);
-        var1.append(class_k.field_k[7][15]);
-        var1.append(class_k.field_k[7][16]);
-        var1.append(class_k.field_k[7][17]);
-        var1.append(class_k.field_k[7][18]);
+        var1.append(ESPersonality.message[7][14]);
+        var1.append(ESPersonality.message[7][15]);
+        var1.append(ESPersonality.message[7][16]);
+        var1.append(ESPersonality.message[7][17]);
+        var1.append(ESPersonality.message[7][18]);
         field_o[3] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][20]);
+        var1.append(ESPersonality.message[7][20]);
         field_o[4] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][22]);
-        var1.append(class_k.field_k[7][23]);
+        var1.append(ESPersonality.message[7][22]);
+        var1.append(ESPersonality.message[7][23]);
         field_o[5] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][25]);
-        var1.append(class_k.field_k[7][26]);
-        var1.append(class_k.field_k[7][27]);
-        var1.append(class_k.field_k[7][28]);
+        var1.append(ESPersonality.message[7][25]);
+        var1.append(ESPersonality.message[7][26]);
+        var1.append(ESPersonality.message[7][27]);
+        var1.append(ESPersonality.message[7][28]);
         field_o[6] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][30]);
+        var1.append(ESPersonality.message[7][30]);
         field_o[7] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][32]);
-        var1.append(class_k.field_k[7][33]);
+        var1.append(ESPersonality.message[7][32]);
+        var1.append(ESPersonality.message[7][33]);
         field_o[8] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][35]);
-        var1.append(class_k.field_k[7][36]);
+        var1.append(ESPersonality.message[7][35]);
+        var1.append(ESPersonality.message[7][36]);
         field_o[9] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][38]);
+        var1.append(ESPersonality.message[7][38]);
         field_o[10] = var1.toString();
         var1.delete(0, 1200);
-        var1.append(class_k.field_k[7][40]);
+        var1.append(ESPersonality.message[7][40]);
         field_o[11] = var1.toString();
         var1.delete(0, 1200);
     }
@@ -2195,12 +2196,12 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
         String var2 = this.field_R[var1].field_M;
         String var3 = this.field_R[var1].method_t();
         short var4 = 0;
-        if (class_k.method_b1(var1)) {
-            var4 = class_k.field_p[var1];
+        if (ESPersonality.method_b1(var1)) {
+            var4 = ESPersonality.field_p[var1];
         } else if (var1 == 4) {
-            var4 = class_k.field_a;
+            var4 = ESPersonality.field_a;
         } else if (var1 == 5) {
-            var4 = class_k.field_g;
+            var4 = ESPersonality.field_g;
         }
 
         var3 = DataTools.replacePOSWithInt(var2, "<TAG>", var4);
@@ -2216,7 +2217,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
             var2 = var1.length;
         }
 
-        int var3 = DataTools.method_a2(10000);
+        int var3 = DataTools.randomIntOneToN(10000);
         String var4 = "es_gamestate" + var3;
 
         while(true) {
@@ -2232,7 +2233,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
                 return var4;
             }
 
-            var3 = DataTools.method_a2(10000);
+            var3 = DataTools.randomIntOneToN(10000);
             var4 = "es_gamestate" + var3;
         }
     }
@@ -2304,12 +2305,12 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
     }
 
     void method_x() {
-        String var1 = class_k.method_a6(this.field_k, 5, 13, 0);
+        String var1 = ESPersonality.method_a6(this.field_k, 5, 13, 0);
         if (var1 == null) {
             var1 = "No rumors!";
         }
 
-        this.field_m.method_a17(class_k.field_s[5]);
+        this.field_m.method_a17(ESPersonality.field_s[5]);
         this.field_m.method_e2(var1);
         this.field_m.field_c = this.field_R[5];
         this.field_m.field_N = 5;
@@ -2317,7 +2318,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
         String var3 = var2.field_M;
         String var4 = var2.method_t();
         short var5 = 0;
-        var5 = class_k.field_g;
+        var5 = ESPersonality.field_g;
         var4 = DataTools.replacePOSWithInt(var3, "<TAG>", var5);
         var2.method_e2(var4);
         this.method_a12(this.field_m);
@@ -2332,7 +2333,7 @@ public class ESGame extends javaMicroMIDlet implements Runnable, CommandListener
 
     static {
         try {
-            field_P = new Random(System.currentTimeMillis());
+            systemRNG = new Random(System.currentTimeMillis());
             method_i1();
             method_C();
             method_K();

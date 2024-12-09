@@ -17,39 +17,40 @@ public class DataTools {
     private DataTools() {
     }
 
-    static byte[] method_a(int var0, InputStream var1) throws Exception {
-        if (var0 > 0) {
-            byte[] var5 = new byte[var0];
-            var1.read(var5);
+    static byte[] readBytes(int bytesEstimate, InputStream inputFile) throws Exception {
+        if (bytesEstimate > 0) {
+            byte[] var5 = new byte[bytesEstimate];
+            inputFile.read(var5);
             return var5;
         } else {
-            ByteArrayOutputStream var2 = new ByteArrayOutputStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-            int var3;
-            while((var3 = var1.read()) != -1) {
-                var2.write(var3);
+            int currentRead;
+            while((currentRead = inputFile.read()) != -1) {
+                outputStream.write(currentRead);
             }
 
-            byte[] var4 = var2.toByteArray();
-            return var4;
+            byte[] outputStreamByteArray = outputStream.toByteArray();
+            return outputStreamByteArray;
         }
     }
 
-    static String method_b(String var0) {
+    static String ensureStartsWithSlash(String var0) {
         return var0.startsWith("/") ? var0 : "/" + var0;
     }
 
-    static DataInputStream method_a1(String var0) throws Exception {
-        return ESGame.method_a10(var0);
+    //takes in a .dat file as a string
+    static DataInputStream readDatFileAsInputStream(String path) throws Exception {
+        return ESGame.readFileAsInputStream(path);
     }
 
     //something to do with RNG
-    static int method_a2(int var0) {
-        return ESGame.method_f1(var0);
+    static int randomIntOneToN(int var0) {
+        return ESGame.randomIntOneToN(var0);
     }
 
-    static int method_a3(Random var0, int var1) {
-        return ESGame.method_a11(var0, var1);
+    static int seededRandomIntOneToN(Random var0, int var1) {
+        return ESGame.seededRandomIntOneToN(var0, var1);
     }
 
     static String commaBetweenInts(int var0, int var1) {

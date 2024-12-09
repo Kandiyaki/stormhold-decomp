@@ -20,20 +20,20 @@ public class class_j {
     private static final Integer field_aj = new Integer(0);
     private static final Integer field_am = new Integer(1);
     private static final Integer field_o = new Integer(-1);
-    static boolean field_S = false;
-    static short field_B;
-    static short field_al;
-    static String[] field_K;
-    static String[] field_r;
-    static String[] field_E;
+    static boolean charInfoLoaded = false;
+    static short numClasses;
+    static short numClasses2;
+    static String[] charClass;
+    static String[] charRace;
+    static String[] charSkills;
     static short[][] field_M;
-    static String[] field_h;
-    static String[] field_y;
-    static short[] field_c;
+    static String[] charAttributes;
+    static String[] charStats;
+    static short[] skillValues;
     static int[][] field_ac = new int[][]{{1, 27}, {7, 27}, {7, 22}, {17, 27}, {12, 22}, {17, 27}, {12, 22}};
     private static final String[] field_af = new String[]{"Stone Blood", "Delusions", "Blind", "Vampirism", "Mana Burn", "Grievous Harm", "Terrified", "Haunted"};
     public static int field_ag = -1;
-    ESGame field_ai;
+    ESGame game;
     public static String field_X = null;
     String field_v;
     short field_ar;
@@ -45,7 +45,7 @@ public class class_j {
     short field_V;
     short[] field_aq;
     short[][] field_R;
-    byte field_p;
+    byte nItems;
     byte[] field_H;
     int[] field_P;
     byte[] field_T;
@@ -91,19 +91,19 @@ public class class_j {
 
     public class_j(ESGame var1) {
         field_g = false;
-        method_u();
+        tryLoadCharInfo();
         this.field_v = null;
         this.field_U = new short[10];
         this.field_J = new short[16];
         this.field_aq = new short[2];
         this.field_R = new short[14][3];
-        this.field_p = 0;
+        this.nItems = 0;
         this.field_H = new byte[24];
         this.field_P = new int[24];
         this.field_T = new byte[7];
         this.field_G = new byte[25];
         this.field_ae = new byte[9][5];
-        this.field_ai = var1;
+        this.game = var1;
         this.field_Q = false;
     }
 
@@ -269,30 +269,30 @@ public class class_j {
         StringBuffer var1 = new StringBuffer(300);
         String var2 = " ";
         String var3 = ": ";
-        var1.append(field_r[this.field_q]);
+        var1.append(charRace[this.field_q]);
         var1.append(var2);
-        var1.append(field_K[this.field_ar]);
+        var1.append(charClass[this.field_ar]);
         var1.append('\n');
-        var1.append(field_h[0]);
+        var1.append(charAttributes[0]);
         var1.append(var3);
         var1.append(this.field_U[0]);
         var1.append('\n');
-        var1.append(field_h[2]);
+        var1.append(charAttributes[2]);
         var1.append(var3);
         var1.append(this.method_n1(2));
         var1.append('\n');
-        var1.append(field_h[4]);
+        var1.append(charAttributes[4]);
         var1.append(var3);
         var1.append(this.method_n1(4));
         var1.append('\n');
-        var1.append(field_h[6]);
+        var1.append(charAttributes[6]);
         var1.append(var3);
         var1.append(this.method_n1(6));
         var1.append('\n');
 
         for(int var4 = 0; var4 < 8; ++var4) {
             int var5 = 2 * var4;
-            var1.append(field_y[var5]);
+            var1.append(charStats[var5]);
             var1.append(var3);
             var1.append(this.field_J[var5]);
             var1.append('\n');
@@ -300,7 +300,7 @@ public class class_j {
 
         for(int var7 = 0; var7 < 14; ++var7) {
             if (this.field_R[var7][0] > 0) {
-                var1.append(field_E[var7]);
+                var1.append(charSkills[var7]);
                 var1.append(var3);
                 var1.append(this.field_R[var7][0]);
                 var1.append('\n');
@@ -311,11 +311,11 @@ public class class_j {
         return var6;
     }
 
-    static void method_u() {
-        if (!field_S) {
+    static void tryLoadCharInfo() {
+        if (!charInfoLoaded) {
             try {
-                method_a1("/charin.dat");
-                field_S = true;
+                loadCharInfo("/charin.dat");
+                charInfoLoaded = true;
             } catch (Exception var1) {
                 System.out.println("Error: could not load character data");
                 System.out.println("Exception: " + var1);
@@ -324,47 +324,49 @@ public class class_j {
 
     }
 
-    private static void method_a1(String var0) throws Exception {
-        DataInputStream var1 = ESGame.method_a10(var0);
-        int var2 = var1.available();
-        field_h = method_a2(var1);
-        field_y = method_a2(var1);
-        field_K = method_a2(var1);
-        field_B = (short)field_K.length;
-        field_r = method_a2(var1);
-        field_al = (short)field_K.length;
-        field_E = method_a2(var1);
-        short var3 = (short)field_E.length;
-        if (var3 != 14) {
+    private static void loadCharInfo(String path) throws Exception {
+        DataInputStream charDataInputStream = ESGame.readFileAsInputStream(path);
+        int var2 = charDataInputStream.available();
+        charAttributes = readCharinData(charDataInputStream);
+        charStats = readCharinData(charDataInputStream);
+        charClass = readCharinData(charDataInputStream);
+        numClasses = (short) charClass.length;
+        charRace = readCharinData(charDataInputStream);
+        numClasses2 = (short) charClass.length; //why is this created twice? second one is never used lol
+        charSkills = readCharinData(charDataInputStream);
+        short numSkills = (short) charSkills.length;
+        if (numSkills != 14) {
             throw new Exception("Error: mismatch between input number of skill types and that specified in code");
         } else {
-            field_c = new short[var3];
+            skillValues = new short[numSkills];
 
-            for(int var4 = 0; var4 < var3; ++var4) {
-                field_c[var4] = var1.readShort();
+            for(int i = 0; i < numSkills; ++i) {
+                skillValues[i] = charDataInputStream.readShort();
             }
 
-            int var5 = 13 + 2 * var3;
-            field_M = new short[field_B][var5];
+            int var5 = 13 + 2 * numSkills;
+            field_M = new short[numClasses][var5];
 
-            for(int var6 = 0; var6 < field_B; ++var6) {
+            for(int var6 = 0; var6 < numClasses; ++var6) {
                 for(int var7 = 0; var7 < var5; ++var7) {
-                    field_M[var6][var7] = var1.readShort();
+                    field_M[var6][var7] = charDataInputStream.readShort();
                 }
             }
 
         }
     }
 
-    private static String[] method_a2(DataInputStream var0) throws Exception {
-        short var1 = var0.readShort();
-        String[] var2 = new String[var1];
+    //used for reading data out of charin.dat
+    //inputStream is the same for each call, so it returns different data each time
+    private static String[] readCharinData(DataInputStream inputStream) throws Exception {
+        short numToRead = inputStream.readShort();
+        String[] outputStrings = new String[numToRead];
 
-        for(int var3 = 0; var3 < var1; ++var3) {
-            var2[var3] = var0.readUTF();
+        for(int var3 = 0; var3 < numToRead; ++var3) {
+            outputStrings[var3] = inputStream.readUTF();
         }
 
-        return var2;
+        return outputStrings;
     }
 
     static class_j method_a3(byte[] var0, boolean var1) throws Exception {
@@ -405,7 +407,7 @@ public class class_j {
         }
 
         if (var1) {
-            var2.field_p = var3.readByte();
+            var2.nItems = var3.readByte();
 
             for(int var11 = 0; var11 < 24; ++var11) {
                 var2.field_H[var11] = var3.readByte();
@@ -501,7 +503,7 @@ public class class_j {
         }
 
         if (var1) {
-            var4.writeByte(this.field_p);
+            var4.writeByte(this.nItems);
 
             for(int var14 = 0; var14 < 24; ++var14) {
                 var4.writeByte(this.field_H[var14]);
@@ -732,8 +734,8 @@ public class class_j {
                         this.field_ak = this.field_e;
                         var3.field_h = true;
                         if (var1 == 1 || var1 == 2) {
-                            if (class_k.field_l) {
-                                class_k.field_l = false;
+                            if (ESPersonality.field_l) {
+                                ESPersonality.field_l = false;
                             }
 
                             short[] var10000 = this.field_U;
@@ -760,10 +762,10 @@ public class class_j {
                                         System.out.println("Dropped item not possessed before");
                                         int var9 = var15[2] - 1;
                                         System.out.println("item index=" + var9);
-                                        if (class_a.field_j[var9] == 11) {
+                                        if (class_a.itemType[var9] == 11) {
                                             this.field_W += (short)class_a.field_c[var9];
                                             int var10 = ESGame.getGameAdvancementLevel(this.field_W);
-                                            this.field_ai.checkOpenAndPopulateDungeons(var10);
+                                            this.game.checkOpenAndPopulateDungeons(var10);
                                         }
                                     }
                                 }
@@ -786,9 +788,9 @@ public class class_j {
                                         if ((var18[6] & 2) != 0) {
                                             int var11 = var18[2] - 1;
                                             System.out.println("item index=" + var11);
-                                            if (class_a.field_j[var11] == 11) {
+                                            if (class_a.itemType[var11] == 11) {
                                                 this.field_W += (short)class_a.field_c[var11];
-                                                this.field_ai.checkOpenAndPopulateDungeons(ESGame.getGameAdvancementLevel(this.field_W));
+                                                this.game.checkOpenAndPopulateDungeons(ESGame.getGameAdvancementLevel(this.field_W));
                                             }
                                         }
                                     }
@@ -977,7 +979,7 @@ public class class_j {
             }
         }
 
-        if (this.field_j == 1 && class_k.field_d) {
+        if (this.field_j == 1 && ESPersonality.field_d) {
             this.method_a8(5, "W");
         }
 
@@ -1153,8 +1155,8 @@ public class class_j {
             var8 = var14[0];
             var9 = var14[1];
         } else if (var1 == 5) {
-            var8 = class_k.field_j[6];
-            var9 = class_k.field_i[6];
+            var8 = ESPersonality.field_j[6];
+            var9 = ESPersonality.field_i[6];
         } else {
             byte[] var13 = (byte[])var2;
             var8 = var13[0];
@@ -1234,8 +1236,8 @@ public class class_j {
     }
 
     static int method_d2(int var0, int var1) {
-        int var2 = DataTools.method_a2(100);
-        int var3 = DataTools.method_a2(100);
+        int var2 = DataTools.randomIntOneToN(100);
+        int var3 = DataTools.randomIntOneToN(100);
         boolean var4 = var2 <= var1;
         field_D = var3 <= var0;
         byte var5 = 0;
@@ -1263,7 +1265,7 @@ public class class_j {
     int method_b3(int var1, boolean var2) {
         int var3 = this.field_R[var1][0];
         if (var2) {
-            int var4 = 1 + field_c[var1];
+            int var4 = 1 + skillValues[var1];
             var3 += this.field_J[var4] / 3;
         }
 
@@ -1485,10 +1487,10 @@ public class class_j {
             System.out.println("Chest item not possessed before");
             int var5 = var7 - 1;
             System.out.println("item index=" + var5);
-            if (class_a.field_j[var5] == 11) {
+            if (class_a.itemType[var5] == 11) {
                 this.field_W += (short)class_a.field_c[var5];
                 int var6 = ESGame.getGameAdvancementLevel(this.field_W);
-                this.field_ai.checkOpenAndPopulateDungeons(var6);
+                this.game.checkOpenAndPopulateDungeons(var6);
             }
 
             return 1;
@@ -1556,7 +1558,7 @@ public class class_j {
             return -1;
         } else {
             byte var1 = this.field_ab;
-            return var1 != 1 ? -1 : class_k.method_a4(this.field_z, this.field_w);
+            return var1 != 1 ? -1 : ESPersonality.method_a4(this.field_z, this.field_w);
         }
     }
 
@@ -1577,10 +1579,10 @@ public class class_j {
         int var2 = this.method_u1(var1);
         int var3 = this.method_b3(var2, true);
         int var4 = this.method_z(var2);
-        byte var5 = class_b.method_c(var1).field_g;
-        byte var6 = class_b.method_c(var1).field_j;
-        byte var7 = class_b.method_c(var1).field_e;
-        byte var8 = class_b.method_c(var1).field_f;
+        byte var5 = spell.method_c(var1).field_g;
+        byte var6 = spell.method_c(var1).field_j;
+        byte var7 = spell.method_c(var1).Cost;
+        byte var8 = spell.method_c(var1).field_f;
         int var9 = var3 - var5;
         int var10 = var4 + var9 * 5;
         int var11 = var6 - var9 * 5;
@@ -1677,8 +1679,8 @@ public class class_j {
         int var5 = this.method_z(var3);
         int var6 = var2.method_c(10);
         int var7 = var2.method_c(9);
-        byte var8 = class_b.method_c(var1).field_e;
-        byte var9 = class_b.method_c(var1).field_f;
+        byte var8 = spell.method_c(var1).Cost;
+        byte var9 = spell.method_c(var1).field_f;
         int var10 = var4 - var6;
         int var11 = var2.method_c(2);
         var10 = Math.min(var10, var11);
@@ -1846,11 +1848,11 @@ public class class_j {
     }
 
     boolean method_b6(int var1, int var2, int var3) {
-        if (this.field_p < 24) {
-            this.field_H[this.field_p] = (byte)var1;
+        if (this.nItems < 24) {
+            this.field_H[this.nItems] = (byte)var1;
             int var4 = (var2 << 16) + (byte)var3;
-            this.field_P[this.field_p] = var4;
-            ++this.field_p;
+            this.field_P[this.nItems] = var4;
+            ++this.nItems;
             return true;
         } else {
             return false;
@@ -1858,18 +1860,18 @@ public class class_j {
     }
 
     boolean method_y1(int var1) {
-        if (var1 >= this.field_p) {
+        if (var1 >= this.nItems) {
             return false;
         } else {
             this.method_A1(var1);
             this.field_H[var1] = 0;
 
-            for(int var2 = var1; var2 < this.field_p - 1; ++var2) {
+            for(int var2 = var1; var2 < this.nItems - 1; ++var2) {
                 this.field_H[var2] = this.field_H[var2 + 1];
                 this.field_P[var2] = this.field_P[var2 + 1];
             }
 
-            --this.field_p;
+            --this.nItems;
             return true;
         }
     }
@@ -1922,7 +1924,7 @@ public class class_j {
     }
 
     private void method_f1(int var1) {
-        for(int var2 = 0; var2 < this.field_p; ++var2) {
+        for(int var2 = 0; var2 < this.nItems; ++var2) {
             byte var3 = this.field_H[var2];
             var3 = (byte)Math.abs(var3);
             int var4 = class_a.method_a1(var3);
@@ -1934,7 +1936,7 @@ public class class_j {
     }
 
     boolean method_a13(boolean var1) {
-        int var2 = this.field_p - 1;
+        int var2 = this.nItems - 1;
         return this.method_d3(var2, var1);
     }
 
@@ -1989,7 +1991,7 @@ public class class_j {
         int var2 = -1;
         int var3 = -Math.abs(var1);
 
-        for(int var4 = 0; var4 < this.field_p; ++var4) {
+        for(int var4 = 0; var4 < this.nItems; ++var4) {
             if (var3 == this.field_H[var4]) {
                 var2 = var4;
                 break;
@@ -2000,12 +2002,12 @@ public class class_j {
     }
 
     boolean method_k() {
-        return this.field_p < 24;
+        return this.nItems < 24;
     }
 
     String method_b7(int var1) {
         int var2 = Math.abs(this.field_H[var1]);
-        byte var3 = class_a.field_j[var2 - 1];
+        byte var3 = class_a.itemType[var2 - 1];
         Object var4 = null;
         String var13;
         switch (var3) {
@@ -2013,8 +2015,8 @@ public class class_j {
             case 2:
             case 3:
             case 4:
-                var13 = class_a.field_b[var2 - 1] + '\n' + class_a.field_g[var3 - 1];
-                int var5 = class_a.field_m[var2 - 1] + (this.field_P[var1] & 255);
+                var13 = class_a.itemName[var2 - 1] + '\n' + class_a.itemTypesArray[var3 - 1];
+                int var5 = class_a.itemValue[var2 - 1] + (this.field_P[var1] & 255);
                 var13 = var13 + "\nWeapon value: " + var5;
                 break;
             case 5:
@@ -2023,22 +2025,22 @@ public class class_j {
             case 8:
             case 9:
             case 10:
-                var13 = class_a.field_b[var2 - 1] + '\n' + class_a.field_g[var3 - 1];
-                int var6 = class_a.field_m[var2 - 1] + (this.field_P[var1] & 255);
+                var13 = class_a.itemName[var2 - 1] + '\n' + class_a.itemTypesArray[var3 - 1];
+                int var6 = class_a.itemValue[var2 - 1] + (this.field_P[var1] & 255);
                 var13 = var13 + "\nArmor value: " + var6;
                 break;
             case 11:
-                var13 = class_a.field_b[var2 - 1] + '\n' + class_a.field_g[var3 - 1];
+                var13 = class_a.itemName[var2 - 1] + '\n' + class_a.itemTypesArray[var3 - 1];
                 break;
             case 12:
-                var13 = class_a.field_b[var2 - 1] + '\n' + "Spell: ";
+                var13 = class_a.itemName[var2 - 1] + '\n' + "Spell: ";
                 int var7 = this.field_P[var1] & 255;
-                var13 = var13 + class_b.field_b[var7 - 1].field_c;
+                var13 = var13 + spell.staticSpellList[var7 - 1].spellName;
                 break;
             case 13:
                 int var8 = var2 - 87;
                 String[] var9 = class_a.field_l[var8];
-                var13 = class_a.field_b[var2 - 1] + '\n' + class_a.field_g[var3 - 1] + '\n' + var9[0];
+                var13 = class_a.itemName[var2 - 1] + '\n' + class_a.itemTypesArray[var3 - 1] + '\n' + var9[0];
                 if (var9[1].length() > 0) {
                     var13 = var13 + '\n' + var9[1];
                 }
@@ -2047,10 +2049,10 @@ public class class_j {
             case 15:
             case 16:
             default:
-                var13 = class_a.field_b[var2 - 1] + '\n' + class_a.field_g[var3 - 1];
+                var13 = class_a.itemName[var2 - 1] + '\n' + class_a.itemTypesArray[var3 - 1];
                 break;
             case 17:
-                var13 = class_a.field_b[var2 - 1] + '\n' + class_a.field_g[var3 - 1];
+                var13 = class_a.itemName[var2 - 1] + '\n' + class_a.itemTypesArray[var3 - 1];
                 int var10 = this.method_b3(3, false);
                 int var11 = 20 + var10;
                 var13 = var13 + "\nWeapon value: " + var11;
@@ -2061,7 +2063,7 @@ public class class_j {
 
     boolean method_r1(int var1) {
         int var2 = Math.abs(this.field_H[var1]);
-        byte var10000 = class_a.field_j[var2 - 1];
+        byte var10000 = class_a.itemType[var2 - 1];
         int var4 = this.field_P[var1] & 255;
         int var5 = var4 - 1;
         this.field_x = DataTools.setSingleBit(var5, this.field_x);
@@ -2075,7 +2077,7 @@ public class class_j {
 
     boolean method_w(int var1) {
         int var2 = Math.abs(this.field_H[var1]);
-        byte var3 = class_a.field_j[var2 - 1];
+        byte var3 = class_a.itemType[var2 - 1];
         switch (var3) {
             case 1:
             case 2:
@@ -2102,7 +2104,7 @@ public class class_j {
 
     boolean method_v1(int var1) {
         int var2 = Math.abs(this.field_H[var1]);
-        byte var3 = class_a.field_j[var2 - 1];
+        byte var3 = class_a.itemType[var2 - 1];
         switch (var3) {
             case 13:
             case 15:
@@ -2114,11 +2116,11 @@ public class class_j {
 
     boolean method_e(int var1) {
         int var2 = Math.abs(this.field_H[var1]);
-        byte var3 = class_a.field_j[var2 - 1];
+        byte var3 = class_a.itemType[var2 - 1];
         switch (var3) {
             case 12:
                 int var4 = this.field_P[var1] & 255;
-                byte var5 = class_b.field_b[var4 - 1].field_h;
+                byte var5 = spell.staticSpellList[var4 - 1].field_h;
                 if (this.field_R[var5][0] > 0) {
                     return true;
                 }
@@ -2195,7 +2197,7 @@ public class class_j {
             if (var1 == 1) {
                 var2 = 1;
             } else {
-                var2 = DataTools.method_a2(var1);
+                var2 = DataTools.randomIntOneToN(var1);
             }
 
             int var3 = 0;
@@ -2232,7 +2234,7 @@ public class class_j {
         String var3 = ": ";
         var1.append(this.field_v);
         var1.append('\n');
-        var1.append(field_K[this.field_ar]);
+        var1.append(charClass[this.field_ar]);
         var1.append('\n');
         var1.append("Level ");
         var1.append(this.field_U[0]);
@@ -2283,7 +2285,7 @@ public class class_j {
 
         for(int var6 = 0; var6 < 8; ++var6) {
             int var7 = 2 * var6;
-            var1.append(field_y[var7]);
+            var1.append(charStats[var7]);
             var1.append(var3);
             var1.append(this.field_J[var7]);
             var1.append('\n');
@@ -2320,7 +2322,7 @@ public class class_j {
 
         for(int var2 = 0; var2 < 14; ++var2) {
             if (this.field_R[var2][0] > 0) {
-                String var3 = field_E[var2] + ": " + this.field_R[var2][0];
+                String var3 = charSkills[var2] + ": " + this.field_R[var2][0];
                 var1.addElement(var3);
             }
         }
@@ -2345,17 +2347,17 @@ public class class_j {
     }
 
     String method_m1(int var1) {
-        String var2 = field_E[var1] + '\n' + "Rank: " + this.field_R[var1][0] + '\n' + "Exp: " + this.field_R[var1][2] + "/10";
+        String var2 = charSkills[var1] + '\n' + "Rank: " + this.field_R[var1][0] + '\n' + "Exp: " + this.field_R[var1][2] + "/10";
         return var2;
     }
 
     Vector method_J() {
         Vector var1 = new Vector();
 
-        for(int var2 = 0; var2 < class_b.field_i; ++var2) {
+        for(int var2 = 0; var2 < spell.numSpells; ++var2) {
             if ((this.field_x & 1 << var2) != 0) {
                 int var3 = var2 + 1;
-                String var4 = class_b.field_b[var2].field_c;
+                String var4 = spell.staticSpellList[var2].spellName;
                 if (var3 == this.field_b) {
                     var4 = "R: " + var4;
                 }
@@ -2370,7 +2372,7 @@ public class class_j {
     int method_B(int var1) {
         int var2 = 0;
 
-        for(int var3 = 0; var3 < class_b.field_i; ++var3) {
+        for(int var3 = 0; var3 < spell.numSpells; ++var3) {
             if ((this.field_x & 1 << var3) != 0) {
                 int var4 = var3 + 1;
                 if (var2 == var1) {
@@ -2385,13 +2387,13 @@ public class class_j {
     }
 
     int method_l1() {
-        if (!class_b.method_a(this.field_b)) {
+        if (!spell.method_a(this.field_b)) {
             int var3 = this.method_B(0);
             return var3 < 0 ? 0 : var3 + 1;
         } else {
             int var1 = this.field_b - 1;
             int var2 = var1 + 1;
-            if (var2 == class_b.field_i) {
+            if (var2 == spell.numSpells) {
                 var2 = 0;
             }
 
@@ -2401,7 +2403,7 @@ public class class_j {
                 }
 
                 ++var2;
-                if (var2 == class_b.field_i) {
+                if (var2 == spell.numSpells) {
                     var2 = 0;
                 }
             }
@@ -2411,10 +2413,10 @@ public class class_j {
     }
 
     String method_s1(int var1) {
-        String var3 = class_b.field_b[var1].field_c + '\n';
-        var3 = var3 + field_E[class_b.field_b[var1].field_h] + '\n';
-        var3 = var3 + "Cost: " + class_b.field_b[var1].field_e + '\n';
-        var3 = var3 + class_b.field_b[var1].field_a;
+        String var3 = spell.staticSpellList[var1].spellName + '\n';
+        var3 = var3 + charSkills[spell.staticSpellList[var1].field_h] + '\n';
+        var3 = var3 + "Cost: " + spell.staticSpellList[var1].Cost + '\n';
+        var3 = var3 + spell.staticSpellList[var1].spellDesc;
         return var3;
     }
 
@@ -2443,9 +2445,9 @@ public class class_j {
         this.field_s = false;
         this.field_L = false;
         this.field_I = false;
-        int var5 = DataTools.method_a2(100);
+        int var5 = DataTools.randomIntOneToN(100);
         if (var5 <= 10) {
-            for(int var6 = 0; var6 < this.field_p; ++var6) {
+            for(int var6 = 0; var6 < this.nItems; ++var6) {
                 int var7 = Math.abs(this.field_H[var6]);
                 if (var7 == 96) {
                     this.method_y1(var6);
@@ -2457,7 +2459,7 @@ public class class_j {
         for(int var9 = 0; var9 < 8; ++var9) {
             int var10 = var9 + 1;
             if (var10 != 4 && var10 != 5) {
-                var5 = DataTools.method_a2(100);
+                var5 = DataTools.randomIntOneToN(100);
                 if (var5 <= 25) {
                     this.field_A = (byte) DataTools.clearSingleBit(var9, this.field_A);
                 }
@@ -2473,7 +2475,7 @@ public class class_j {
 
     void method_a15(int var1, class_d var2) {
         int var3 = Math.abs(this.field_H[var1]);
-        byte var4 = class_a.field_j[var3 - 1];
+        byte var4 = class_a.itemType[var3 - 1];
         if (var4 == 13 || var4 == 15) {
             boolean var5 = true;
             switch (var3) {
@@ -2559,7 +2561,7 @@ public class class_j {
                 short[] var10000 = this.field_R[var1];
                 var10000[2] = (short)(var10000[2] - 10);
                 ++this.field_R[var1][0];
-                short var2 = field_c[var1];
+                short var2 = skillValues[var1];
                 int var3 = var2 / 2;
                 this.field_N = (byte)(this.field_N | 1 << var3);
                 ++this.field_U[1];
@@ -2575,7 +2577,7 @@ public class class_j {
     }
 
     void method_d5() {
-        class_k.method_d();
+        ESPersonality.method_d();
         short[] var10000 = this.field_U;
         var10000[1] = (short)(var10000[1] - 10);
     }
@@ -2586,7 +2588,7 @@ public class class_j {
         for(int var2 = 0; var2 < 8; ++var2) {
             if ((this.field_N & 1 << var2) != 0) {
                 int var3 = var2 * 2;
-                var1.addElement(field_y[var3]);
+                var1.addElement(charStats[var3]);
             }
         }
 
@@ -2610,7 +2612,7 @@ public class class_j {
 
         for(int var3 = 0; var3 < var2.length; ++var3) {
             this.method_c4(var2[var3], var1);
-            int var4 = this.field_p - 1;
+            int var4 = this.nItems - 1;
             this.method_d3(var4, true);
         }
 
@@ -2650,7 +2652,7 @@ public class class_j {
             var3 += 3;
         }
 
-        short var4 = class_k.field_r[var1];
+        short var4 = ESPersonality.field_r[var1];
         int var5 = var3 - var4;
         int var6 = 20 - var5 * 5;
         int var7 = 20 + this.field_J[12] / 2 + var5 * 5;
@@ -2751,13 +2753,13 @@ public class class_j {
             this.field_ak = var1;
         }
 
-        if (class_k.field_d) {
+        if (ESPersonality.field_d) {
             var2.append("Warden IS visiting now\n");
         } else {
             var2.append("Warden IS NOT visiting now\n");
         }
 
-        var2.append("Player inventory: nitems=" + this.field_p);
+        var2.append("Player inventory: nitems=" + this.nItems);
         return var2.toString();
     }
 }

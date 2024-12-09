@@ -16,10 +16,10 @@ import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 public class class_e extends FullCanvas implements Runnable {
-    private static final Font field_aj = Font.getFont(64, 0, 8);
-    private static final Font field_M = Font.getFont(64, 2, 16);
-    private static final Font field_w = Font.getFont(64, 2, 16);
-    private static final Font field_K = Font.getFont(64, 1, 16);
+    private static final Font field_aj = Font.getFont(64, 0, 8); //FACE_PROPORTIONAL, STYLE_PLAIN, SIZE_SMALL
+    private static final Font field_M = Font.getFont(64, 2, 16); //FACE_PROPORTIONAL, STYLE_ITALIC, SIZE_LARGE. unused???
+    private static final Font field_w = Font.getFont(64, 2, 16); //FACE_PROPORTIONAL, STYLE_ITALIC, SIZE_LARGE
+    private static final Font field_K = Font.getFont(64, 1, 16); //FACE_PROPORTIONAL, STYLE_BOLD, SIZE_LARGE
     static final int[][][] field_n = new int[][][]{{{12, 0, 0, 1}, {11, 0, -1, 1}, {12, 1, -1, 2}, {12, 2, -1, 3}, {11, 2, -2, 3}, {12, 3, -2, 4}}, {{12, 0, 0, 1}, {12, 1, 0, 2}, {11, 1, -1, 2}, {12, 2, -1, 3}, {12, 3, -1, 4}, {12, 3, -1, 4}}, {{12, 0, 0, 1}, {12, 1, 0, 2}, {12, 2, 0, 3}, {11, 2, -1, 3}, {12, 3, -1, 4}, {12, 3, -1, 4}}, {{12, 0, 0, 1}, {12, 1, 0, 2}, {12, 2, 0, 3}, {12, 3, 0, 4}, {11, 3, -1, 4}, {11, 3, -1, 4}}, {{12, 0, 0, 1}, {12, 1, 0, 2}, {12, 2, 0, 3}, {12, 3, 0, 4}, {12, 3, 0, 4}, {12, 3, 0, 4}}};
     private static final byte[][] field_ae = new byte[][]{{1, 5, 31, 53, 0, 1, 40, -39, 1, 4, 13, -2, 3, 6, 71, 4, 30, 64, 2, 0, 0, 0}, {6, 10, 31, 53, 7, 1, 27, -35, 8, 4, 1, 69, 11, 27, 66, 9, 33, 10, 10, 0, 0, 0}, {11, 25, 31, 20, 14, 1, 0, 0, -1, -1, 2, 25, 15, 81, 8, 16, 9, 0, 17, 60, 57, 18}, {26, 40, 31, 32, 21, 1, 0, 0, -1, -1, 43, 44, 22, 50, 25, 23, -36, 9, 24, -25, 44, 25}};
     private static final byte[][] field_a = new byte[][]{{0, 0}, {0, 0}, {0, 3}, {0, 3}, {0, 3}, {0, 2}, {0, 2}, {0, 3}, {0, 3}, {0, 3}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}};
@@ -128,16 +128,16 @@ public class class_e extends FullCanvas implements Runnable {
 
     public void paint(Graphics var1) {
         if (this.field_aD == 3) {
-            this.method_f(var1);
+            this.paintDeathScreen(var1);
         } else if (this.field_c != 1 && this.field_c != 2) {
-            this.method_m(var1);
+            this.paintMonsters(var1);
         } else {
-            this.method_c(var1);
+            this.paintCampingScreen(var1);
         }
 
     }
 
-    private void method_f(Graphics var1) {
+    private void paintDeathScreen(Graphics var1) {
         var1.setColor(0);
         var1.fillRect(0, 0, ((Canvas)this).getWidth(), ((Canvas)this).getHeight());
         var1.setColor(16777215);
@@ -145,7 +145,7 @@ public class class_e extends FullCanvas implements Runnable {
         var1.drawString("You're Dead!", ((Canvas)this).getWidth() / 2, ((Canvas)this).getHeight() / 2, 33);
     }
 
-    private void method_c(Graphics var1) {
+    private void paintCampingScreen(Graphics var1) {
         var1.setColor(0);
         var1.fillRect(0, 0, ((Canvas)this).getWidth(), ((Canvas)this).getHeight());
         var1.setColor(16777215);
@@ -153,7 +153,7 @@ public class class_e extends FullCanvas implements Runnable {
         var1.drawString("CAMPING", ((Canvas)this).getWidth() / 2, ((Canvas)this).getHeight() / 2, 33);
     }
 
-    private void method_m(Graphics var1) {
+    private void paintMonsters(Graphics var1) {
         var1.setColor(0);
         var1.fillRect(0, 0, ((Canvas)this).getWidth(), ((Canvas)this).getHeight());
         this.method_j(var1);
@@ -194,22 +194,22 @@ public class class_e extends FullCanvas implements Runnable {
 
     private void method_e(Graphics var1) {
         if (field_S) {
-            int var2 = 40 + DataTools.method_a2(30);
-            int var3 = 50 + DataTools.method_a2(20);
+            int var2 = 40 + DataTools.randomIntOneToN(30);
+            int var3 = 50 + DataTools.randomIntOneToN(20);
             var1.drawImage(field_aE[0], var2, var3, 20);
             field_S = false;
         }
 
         if (field_ao) {
-            int var4 = 40 + DataTools.method_a2(30);
-            int var6 = 50 + DataTools.method_a2(22);
+            int var4 = 40 + DataTools.randomIntOneToN(30);
+            int var6 = 50 + DataTools.randomIntOneToN(22);
             var1.drawImage(field_aE[1], var4, var6, 20);
             field_ao = false;
         }
 
         if (field_am) {
-            int var5 = 50 + DataTools.method_a2(2);
-            int var7 = 80 + DataTools.method_a2(2);
+            int var5 = 50 + DataTools.randomIntOneToN(2);
+            int var7 = 80 + DataTools.randomIntOneToN(2);
             var1.drawImage(field_aE[2], var5, var7, 20);
             field_am = false;
         }
@@ -337,8 +337,8 @@ public class class_e extends FullCanvas implements Runnable {
             }
         } else {
             field_W = false;
-            if (!this.method_d4() && class_k.field_d && this.field_ax.field_m == class_k.field_f) {
-                class_k.method_a2();
+            if (!this.method_d4() && ESPersonality.field_d && this.field_ax.field_m == ESPersonality.field_f) {
+                ESPersonality.method_a2();
             }
         }
 
@@ -377,7 +377,7 @@ public class class_e extends FullCanvas implements Runnable {
                 this.method_e1(var1, 8, 0);
                 break;
             case 6:
-                int var9 = Math.min(class_k.field_f, 3) - 1;
+                int var9 = Math.min(ESPersonality.field_f, 3) - 1;
                 this.method_a3(var1, var9);
         }
 
@@ -1099,7 +1099,7 @@ public class class_e extends FullCanvas implements Runnable {
                             System.out.println("Restart after dead");
                             this.field_ax.method_a(this.field_ax.field_U);
 
-                            for(int var11 = this.field_ax.field_p - 1; var11 >= 0; --var11) {
+                            for(int var11 = this.field_ax.nItems - 1; var11 >= 0; --var11) {
                                 if (!this.field_ax.method_C(var11)) {
                                     this.field_ax.method_y1(var11);
                                 }
@@ -1108,7 +1108,7 @@ public class class_e extends FullCanvas implements Runnable {
                             this.field_ax.method_c1(this.field_ax.field_ar, true);
                             this.field_s = 0L;
                             this.field_aD = 1;
-                            class_k.field_l = true;
+                            ESPersonality.field_l = true;
                             this.field_v = true;
                             field_E = true;
                             var10 = true;
@@ -1134,12 +1134,12 @@ public class class_e extends FullCanvas implements Runnable {
                     }
 
                     if (var10) {
-                        if (class_k.method_a1(this.field_ax.field_W)) {
-                            class_k.method_c();
+                        if (ESPersonality.method_a1(this.field_ax.field_W)) {
+                            ESPersonality.method_c();
                         }
 
-                        if (this.method_d4() && class_k.field_f > this.field_ax.field_m) {
-                            String var21 = class_k.method_a6(this.field_ax, 6, -1, -1);
+                        if (this.method_d4() && ESPersonality.field_f > this.field_ax.field_m) {
+                            String var21 = ESPersonality.method_a6(this.field_ax, 6, -1, -1);
                             this.field_H.field_aV = this.field_H.newWardenSpeaksUI(var21);
                             var9 = true;
                         }
@@ -1379,7 +1379,7 @@ public class class_e extends FullCanvas implements Runnable {
 
     private void method_n() {
         if (this.field_p != 0) {
-            byte var1 = this.field_ax.field_p;
+            byte var1 = this.field_ax.nItems;
             field_at = true;
             this.field_ax.method_a4(this.field_p, this.field_aw);
             if (class_j.field_g) {
@@ -1415,7 +1415,7 @@ public class class_e extends FullCanvas implements Runnable {
             }
 
             this.field_p = 0;
-            int var4 = this.field_ax.field_p - var1;
+            int var4 = this.field_ax.nItems - var1;
             if (var4 == 1) {
                 if (this.method_a1(this.method_k1(), -1)) {
                     field_as = System.currentTimeMillis();
@@ -1432,20 +1432,20 @@ public class class_e extends FullCanvas implements Runnable {
     private void method_h2(long var1) {
         if (field_ap) {
             byte var3 = this.field_ax.field_b;
-            if (!class_b.method_a(var3)) {
+            if (!spell.method_a(var3)) {
                 System.out.println("Invalid spell id,= " + var3);
                 field_ap = false;
                 return;
             }
 
-            if (class_b.method_c(var3).field_e > this.field_ax.method_n1(4)) {
+            if (spell.method_c(var3).Cost > this.field_ax.method_n1(4)) {
                 if (this.method_a1(field_t, 3)) {
                     field_as = var1;
                     field_ad = true;
                 }
-            } else if (var1 - this.field_V >= 500L && class_b.method_a(var3)) {
+            } else if (var1 - this.field_V >= 500L && spell.method_a(var3)) {
                 field_at = true;
-                if (class_b.method_b(var3)) {
+                if (spell.method_b(var3)) {
                     if (!field_aa) {
                         if (this.method_a1(field_g, 1)) {
                             field_as = var1;
@@ -1479,7 +1479,7 @@ public class class_e extends FullCanvas implements Runnable {
                 }
             } else {
                 this.field_ax.field_b = (byte)var3;
-                String var4 = class_b.method_c(var3).field_c;
+                String var4 = spell.method_c(var3).spellName;
                 String[] var5 = DataTools.method_c2(var4);
                 Object var6 = null;
                 String[] var7;
@@ -1503,10 +1503,10 @@ public class class_e extends FullCanvas implements Runnable {
     }
 
     private void method_f1(long var1) {
-        int var3 = this.field_ax.method_r();
-        System.out.println("NPC In front is " + var3);
-        if (var3 >= 0) {
-            this.method_d3(var3);
+        int npcID = this.field_ax.method_r();
+        System.out.println("NPC In front is " + npcID);
+        if (npcID >= 0) {
+            this.method_d3(npcID);
             System.out.println("done interacting with NPC, must paint as well");
         } else if (field_m) {
             byte[] var4 = this.field_ax.method_h1();
@@ -1531,7 +1531,7 @@ public class class_e extends FullCanvas implements Runnable {
     }
 
     private String[] method_k1() {
-        int var1 = this.field_ax.field_p - 1;
+        int var1 = this.field_ax.nItems - 1;
         int var2 = Math.abs(this.field_ax.field_H[var1]);
         String[] var3 = DataTools.method_c2(class_a.method_d(var2));
         String[] var4 = new String[]{"", ""};
@@ -1568,10 +1568,10 @@ public class class_e extends FullCanvas implements Runnable {
     }
 
     void method_d3(int var1) {
-        String var2 = class_k.method_a6(this.field_ax, var1, 1, 0);
+        String var2 = ESPersonality.method_a6(this.field_ax, var1, 1, 0);
         System.out.println("Just after NPC interaction in game canvas!");
         if (var2 != null) {
-            this.field_H.field_aq.method_a17(class_k.field_s[var1]);
+            this.field_H.field_aq.method_a17(ESPersonality.field_s[var1]);
             this.field_H.field_aq.method_e2(var2);
             this.field_H.field_aq.field_c = this.field_H.field_R[var1];
             this.field_H.field_aq.field_N = var1;
@@ -1579,12 +1579,12 @@ public class class_e extends FullCanvas implements Runnable {
             String var4 = var3.field_M;
             String var5 = var3.method_t();
             short var6 = 0;
-            if (class_k.method_b1(var1)) {
-                var6 = class_k.field_p[var1];
+            if (ESPersonality.method_b1(var1)) {
+                var6 = ESPersonality.field_p[var1];
             } else if (var1 == 4) {
-                var6 = class_k.field_a;
+                var6 = ESPersonality.field_a;
             } else if (var1 == 5) {
-                var6 = class_k.field_g;
+                var6 = ESPersonality.field_g;
             }
 
             var5 = DataTools.replacePOSWithInt(var4, "<TAG>", var6);
@@ -1597,7 +1597,7 @@ public class class_e extends FullCanvas implements Runnable {
             String var9 = var7.field_M;
             String var12 = var7.method_t();
             short var16 = 0;
-            var16 = class_k.field_a;
+            var16 = ESPersonality.field_a;
             var12 = DataTools.replacePOSWithInt(var9, "<TAG>", var16);
             var7.method_e2(var12);
             this.field_H.method_a12(var7);
@@ -1608,7 +1608,7 @@ public class class_e extends FullCanvas implements Runnable {
             String var10 = var8.field_M;
             String var14 = var8.method_t();
             short var18 = 0;
-            var18 = class_k.field_g;
+            var18 = ESPersonality.field_g;
             var14 = DataTools.replacePOSWithInt(var10, "<TAG>", var18);
             var8.method_e2(var14);
             this.field_H.method_a12(var8);
@@ -1672,7 +1672,7 @@ public class class_e extends FullCanvas implements Runnable {
     }
 
     private boolean method_o() {
-        int var1 = DataTools.method_a2(10);
+        int var1 = DataTools.randomIntOneToN(10);
         return var1 == 1;
     }
 
@@ -1764,7 +1764,7 @@ public class class_e extends FullCanvas implements Runnable {
     }
 
     private boolean method_d4() {
-        if (class_k.method_a7(this.field_ax)) {
+        if (ESPersonality.method_a7(this.field_ax)) {
             return true;
         } else if (field_j == null) {
             return false;

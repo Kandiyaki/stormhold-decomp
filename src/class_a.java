@@ -9,21 +9,22 @@ import java.io.DataInputStream;
 import java.util.Random;
 
 public class class_a {
-    static int field_n;
-    static String[] field_g;
-    static int field_k;
-    static String[] field_b;
-    static byte[] field_j;
+    static int numItemTypes;
+    static String[] itemTypesArray;
+    static int numItems;
+    static String[] itemName;
+    static byte[] itemType;
     static byte[] field_c;
-    static byte[] field_m;
+    static byte[] itemValue;
     static short[] field_f;
     static short[] field_a;
     static byte[] field_e;
     static String[][] field_l = new String[][]{{"Warp to camp", ""}, {"Cures ailment", ""}, {"Restores Health", ""}, {"Restores Magicka", ""}, {"", ""}, {"Grants level", "experience"}, {"Health & Magicka", ""}, {"Increase harm", ""}, {"Increase armor", ""}, {"Safe camping", ""}, {"Kill monster", ""}, {"Kill monster", ""}, {"Kill monster", ""}};
-    static byte[][] field_h;
-    static byte field_d;
+    static byte[][] droppedItemsTable;
+    static byte numTableRows;
     static short field_i;
 
+    //more static methods. another tools class?
     class_a() {
     }
 
@@ -43,7 +44,7 @@ public class class_a {
 
     static boolean method_b(int var0) {
         int var1 = method_e(var0);
-        byte var2 = field_j[var1];
+        byte var2 = itemType[var1];
         switch (var2) {
             case 1:
             case 2:
@@ -69,7 +70,7 @@ public class class_a {
 
     static String method_d(int var0) {
         int var1 = method_e(var0);
-        return field_b[var1];
+        return itemName[var1];
     }
 
     static int method_a2(int var0, int var1) {
@@ -77,13 +78,13 @@ public class class_a {
         short var3;
         switch (var0) {
             case 1:
-                var3 = field_j[var2];
+                var3 = itemType[var2];
                 break;
             case 2:
                 var3 = field_c[var2];
                 break;
             case 3:
-                var3 = field_m[var2];
+                var3 = itemValue[var2];
                 break;
             case 4:
                 var3 = field_f[var2];
@@ -101,84 +102,91 @@ public class class_a {
         return var3;
     }
 
-    static void method_e1() throws Exception {
+    //never called????? seems important
+    static void initItemList() throws Exception {
         field_i = 0;
-        method_c1();
-        method_d1();
+        initItemsTable();
+        initDroppedItemsTable();
     }
 
-    static void method_c1() throws Exception {
-        DataInputStream var0 = DataTools.method_a1("/itemsin.dat");
-        field_n = var0.readShort();
-        field_g = new String[field_n];
+    static void initItemsTable() throws Exception {
+        DataInputStream itemsTableStream = DataTools.readDatFileAsInputStream("/itemsin.dat");
+        numItemTypes = itemsTableStream.readShort(); //from reading dat file, i think numStrings is 17
+        itemTypesArray = new String[numItemTypes];
 
-        for(int var1 = 0; var1 < field_n; ++var1) {
-            field_g[var1] = var0.readUTF();
+        for(int i = 0; i < numItemTypes; ++i) {
+            itemTypesArray[i] = itemsTableStream.readUTF();
         }
 
-        field_k = var0.readShort();
-        field_b = new String[field_k];
-        field_j = new byte[field_k];
-        field_c = new byte[field_k];
-        field_m = new byte[field_k];
-        field_f = new short[field_k];
-        field_a = new short[field_k];
-        field_e = new byte[field_k];
+        numItems = itemsTableStream.readShort();//from reading dat file, should be 109
+        itemName = new String[numItems];
+        itemType = new byte[numItems];
+        field_c = new byte[numItems];
+        itemValue = new byte[numItems];
+        field_f = new short[numItems];
+        field_a = new short[numItems];
+        field_e = new byte[numItems];
 
-        for(int var2 = 0; var2 < field_k; ++var2) {
-            field_b[var2] = var0.readUTF();
+        for(int i = 0; i < numItems; ++i) {
+            itemName[i] = itemsTableStream.readUTF();
         }
 
-        for(int var3 = 0; var3 < field_k; ++var3) {
-            field_j[var3] = var0.readByte();
+        for(int i = 0; i < numItems; ++i) {
+            itemType[i] = itemsTableStream.readByte();
         }
 
-        for(int var4 = 0; var4 < field_k; ++var4) {
-            field_c[var4] = var0.readByte();
+        //TODO: do unplug reverse engineering on these.
+        for(int i = 0; i < numItems; ++i) {
+            //starts pos 1872, ends pos 1981. ranges from 00 to 05
+            field_c[i] = itemsTableStream.readByte();
+            //field_c[i] = (byte)'E';//something like this? replacing the prev line will stop us from moving to next byte
+
         }
 
-        for(int var5 = 0; var5 < field_k; ++var5) {
-            field_m[var5] = var0.readByte();
+        for(int i = 0; i < numItems; ++i) {
+            itemValue[i] = itemsTableStream.readByte();
         }
 
-        for(int var6 = 0; var6 < field_k; ++var6) {
-            field_f[var6] = var0.readShort();
+        for(int i = 0; i < numItems; ++i) {
+            field_f[i] = itemsTableStream.readShort();
         }
 
-        for(int var7 = 0; var7 < field_k; ++var7) {
-            field_a[var7] = var0.readShort();
+        for(int i = 0; i < numItems; ++i) {
+            field_a[i] = itemsTableStream.readShort();
         }
 
-        for(int var8 = 0; var8 < field_k; ++var8) {
-            field_e[var8] = var0.readByte();
+        for(int i = 0; i < numItems; ++i) {
+            field_e[i] = itemsTableStream.readByte();
         }
 
-        var0.close();
+        itemsTableStream.close();
     }
 
-    static void method_d1() throws Exception {
-        DataInputStream var0 = DataTools.method_a1("/droppeditemsin.dat");
-        short var1 = var0.readShort();
-        field_d = (byte)var1;
-        System.out.println("numTableRows=" + field_d);
-        short var2 = var0.readShort();
-        field_h = new byte[var1][var2];
+    static void initDroppedItemsTable() throws Exception {
+        DataInputStream droppedItemsTableStream = DataTools.readDatFileAsInputStream("/droppeditemsin.dat");
+        //i assume the first 2 shorts of this .dat file are a row and column number respectively?
+        short rows = droppedItemsTableStream.readShort();
+        numTableRows = (byte)rows;
+        System.out.println("numTableRows=" + numTableRows);
+        short columns = droppedItemsTableStream.readShort();
+        droppedItemsTable = new byte[rows][columns];
 
-        for(int var3 = 0; var3 < var1; ++var3) {
-            for(int var4 = 0; var4 < var2; ++var4) {
-                field_h[var3][var4] = var0.readByte();
+        //populate table from dat file
+        for(int rowN = 0; rowN < rows; ++rowN) {
+            for(int colN = 0; colN < columns; ++colN) {
+                droppedItemsTable[rowN][colN] = droppedItemsTableStream.readByte();
             }
         }
 
-        var0.close();
+        droppedItemsTableStream.close();
     }
 
     static int method_a3(Random var0, int var1) {
         int var2 = -1;
         int var3 = -1;
 
-        for(int var4 = 0; var4 < field_k; ++var4) {
-            if (field_j[var4] == 11 && field_c[var4] == (byte)var1) {
+        for(int var4 = 0; var4 < numItems; ++var4) {
+            if (itemType[var4] == 11 && field_c[var4] == (byte)var1) {
                 if (var2 == -1) {
                     var2 = var4;
                 }
@@ -192,12 +200,12 @@ public class class_a {
         return 1 + var6;
     }
 
-    static int method_a4(Random var0, int var1, int var2) {
-        int var3 = DataTools.method_a3(var0, 100);
+    static int getRandomItem(Random rngSeed, int var1, int var2) {
+        int var3 = DataTools.seededRandomIntOneToN(rngSeed, 100);
         int var4 = var3;
 
         for(int var5 = 1; var5 < var2; ++var5) {
-            var3 = DataTools.method_a3(var0, 100);
+            var3 = DataTools.seededRandomIntOneToN(rngSeed, 100);
             if (var3 > var4) {
                 var4 = var3;
             }
@@ -214,32 +222,32 @@ public class class_a {
             var6 = 4;
         }
 
-        int var7 = DataTools.method_a3(var0, 10);
+        int var7 = DataTools.seededRandomIntOneToN(rngSeed, 10);
         var7 += var1 - 2;
-        if (var7 > field_d - 1) {
-            var7 = field_d - 1;
+        if (var7 > numTableRows - 1) {
+            var7 = numTableRows - 1;
         }
 
         if (var7 < 0) {
             var7 = 0;
         }
 
-        byte var8 = field_h[var7][var6];
-        int var9 = var8;
+        byte var8 = droppedItemsTable[var7][var6];
+        int res = var8;
         if (var6 == 1) {
-            byte var10 = field_h[var7][2];
-            var9 = var8 | var10 << 8;
+            byte var10 = droppedItemsTable[var7][2];
+            res = var8 | var10 << 8;
         }
 
-        System.out.println("in getRandomItem, res = " + var9);
-        return var9;
+        System.out.println("in getRandomItem, res = " + res);
+        return res;
     }
 
     static String[] method_b1() {
         String[] var0 = new String[13];
 
         for(int var1 = 0; var1 < 13; ++var1) {
-            var0[var1] = field_b[86 + var1];
+            var0[var1] = itemName[86 + var1];
         }
 
         return var0;

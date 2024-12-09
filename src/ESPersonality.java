@@ -7,7 +7,7 @@ package ;
 
 import java.io.DataInputStream;
 
-public class class_k {
+public class ESPersonality {
     static String[] field_s = new String[]{"Arantamo", "Celegil", "Favela Dralor", "Vander", "Beneca", "Helga", "Varus"};
     static byte[] field_e = new byte[]{1, 1, 1, 1, 2, 2, 3};
     static byte[] field_j = new byte[]{12, 3, 15, 6, 7, 12, 9};
@@ -24,22 +24,22 @@ public class class_k {
     static short field_a;
     static short field_g;
     static boolean field_l;
-    static String[][] field_k;
+    static String[][] message;
     static int[] field_o = new int[]{20, 20, 20, 20, 5, 22, 5, 41};
     static boolean field_m = false;
 
-    public class_k() {
+    public ESPersonality() {
     }
 
     static void method_e() {
         method_a("/npcstrings.dat");
     }
 
-    static void method_a(String var0) {
+    static void method_a(String path) {
         try {
-            DataInputStream var1 = DataTools.method_a1(var0);
+            DataInputStream var1 = DataTools.readDatFileAsInputStream(path);
             byte var2 = 8;
-            field_k = new String[var2][];
+            message = new String[var2][];
 
             for(int var3 = 0; var3 < var2; ++var3) {
                 method_a3(var3, field_o[var3], var1);
@@ -88,10 +88,10 @@ public class class_k {
             System.out.println("Unexpected number of messages for whichNPC = " + var0);
             throw new Exception("Error in readNPCMessages: npc is " + var0);
         } else {
-            field_k[var0] = new String[var3];
+            message[var0] = new String[var3];
 
             for(int var4 = 0; var4 < var3; ++var4) {
-                field_k[var0][var4] = var2.readUTF();
+                message[var0][var4] = var2.readUTF();
             }
 
         }
@@ -164,147 +164,147 @@ public class class_k {
         short var2 = var0.field_R[var1][0];
         if (var2 == 0) {
             var0.field_R[var1][0] = 1;
-            String var6 = field_k[7][1];
-            var6 = DataTools.replacePartOfString(var6, "<TAG>", class_j.field_E[var1]);
+            String var6 = message[7][1];
+            var6 = DataTools.replacePartOfString(var6, "<TAG>", class_j.charSkills[var1]);
             return var6;
         } else {
             var0.field_R[var1][0] = (short)(var2 + 1);
-            String var3 = field_k[7][2];
-            String[] var4 = new String[]{class_j.field_E[var1], String.valueOf(var2), String.valueOf(var2 + 1)};
+            String var3 = message[7][2];
+            String[] var4 = new String[]{class_j.charSkills[var1], String.valueOf(var2), String.valueOf(var2 + 1)};
             var3 = DataTools.replacePartOfManyStrings(var3, "<TAG>", var4);
             return var3;
         }
     }
 
-    static String method_a6(class_j var0, int var1, int var2, int var3) {
-        switch (var1) {
+    static String method_a6(class_j var0, int iNPC, int var2, int var3) {
+        switch (iNPC) {
             case 0:
             case 1:
             case 2:
             case 3:
                 if (var2 == 1) {
-                    if (field_q[var1]) {
-                        field_q[var1] = false;
-                        return field_k[var1][0];
-                    } else if (field_h[var1] > 50) {
-                        return field_k[var1][1];
+                    if (field_q[iNPC]) {
+                        field_q[iNPC] = false;
+                        return message[iNPC][0];
+                    } else if (field_h[iNPC] > 50) {
+                        return message[iNPC][1];
                     } else {
                         if (var0.field_U[8] > 50) {
-                            return field_k[var1][2];
+                            return message[iNPC][2];
                         }
 
-                        int var10 = ESGame.method_h1(3);
-                        return field_k[var1][3 + var10];
+                        int var10 = ESGame.randomIntZeroToLessThanN(3);
+                        return message[iNPC][3 + var10];
                     }
                 } else if (var2 == 2) {
-                    if (field_c[var1] != 0) {
-                        return field_k[var1][6];
+                    if (field_c[iNPC] != 0) {
+                        return message[iNPC][6];
                     }
 
-                    int var9 = var0.method_b9(var1, var2);
+                    int var9 = var0.method_b9(iNPC, var2);
                     if (var9 == 0) {
-                        field_c[var1] = 1;
+                        field_c[iNPC] = 1;
                     } else if (var9 == 1) {
                         short[] var28 = var0.field_R[13];
                         var28[2] = (short)(var28[2] + 2);
                     } else if (var9 == 2) {
                         short[] var29 = var0.field_R[13];
                         var29[2] = (short)(var29[2] + 5);
-                        ++field_p[var1];
-                        field_c[var1] = 1;
+                        ++field_p[iNPC];
+                        field_c[iNPC] = 1;
                     } else if (var9 == 3) {
                         short[] var31 = var0.field_R[13];
                         var31[2] = (short)(var31[2] + 8);
-                        ++field_p[var1];
-                        field_c[var1] = 1;
+                        ++field_p[iNPC];
+                        field_c[iNPC] = 1;
                     }
 
-                    ++field_r[var1];
-                    return field_k[var1][7 + var9];
+                    ++field_r[iNPC];
+                    return message[iNPC][7 + var9];
                 } else if (var2 == 3) {
-                    if (field_n[var1] != 0) {
-                        return field_k[var1][6];
+                    if (field_n[iNPC] != 0) {
+                        return message[iNPC][6];
                     }
 
-                    int var8 = var0.method_b9(var1, var2);
+                    int var8 = var0.method_b9(iNPC, var2);
                     int var15 = var3 <= 1 ? 0 : 1;
                     if (var8 == 0) {
-                        field_n[var1] = 2;
+                        field_n[iNPC] = 2;
                     } else if (var8 == 1) {
                         short[] var22 = var0.field_R[13];
                         var22[2] = (short)(var22[2] + 2);
-                        field_n[var1] = 2;
+                        field_n[iNPC] = 2;
                     } else if (var8 == 2) {
                         short[] var23 = var0.field_R[13];
                         var23[2] = (short)(var23[2] + 5);
-                        ++field_p[var1];
-                        field_n[var1] = 1;
+                        ++field_p[iNPC];
+                        field_n[iNPC] = 1;
                     } else if (var8 == 3) {
                         short[] var25 = var0.field_R[13];
                         var25[2] = (short)(var25[2] + 8);
-                        ++field_p[var1];
-                        field_n[var1] = 1;
+                        ++field_p[iNPC];
+                        field_n[iNPC] = 1;
                     }
 
-                    ++field_r[var1];
-                    return field_k[var1][11 + var15];
+                    ++field_r[iNPC];
+                    return message[iNPC][11 + var15];
                 } else if (var2 == 4) {
-                    if (field_c[var1] != 2 && field_n[var1] != 2) {
+                    if (field_c[iNPC] != 2 && field_n[iNPC] != 2) {
                         int var14 = Math.abs(var0.field_H[var3]);
                         if (class_a.method_a2(1, var14) == 15) {
                             var0.method_y1(var3);
                             int var19 = class_a.method_a2(3, var14);
                             short[] var21 = field_h;
-                            var21[var1] = (short)(var21[var1] - var19);
-                            field_h[var1] = (short)Math.max(field_h[var1], 0);
-                            return field_k[var1][17];
+                            var21[iNPC] = (short)(var21[iNPC] - var19);
+                            field_h[iNPC] = (short)Math.max(field_h[iNPC], 0);
+                            return message[iNPC][17];
                         }
 
                         if (class_a.method_a2(1, var14) == 11) {
-                            int var18 = method_d1(var1, var14);
+                            int var18 = method_d1(iNPC, var14);
                             if (var18 > 0) {
                                 var0.method_y1(var3);
                                 short[] var20 = field_p;
-                                var20[var1] = (short)(var20[var1] + var18);
-                                field_c[var1] = 0;
-                                field_n[var1] = 0;
+                                var20[iNPC] = (short)(var20[iNPC] + var18);
+                                field_c[iNPC] = 0;
+                                field_n[iNPC] = 0;
                             }
 
-                            return field_k[var1][13 + var18];
+                            return message[iNPC][13 + var18];
                         }
 
-                        return field_k[var1][13];
+                        return message[iNPC][13];
                     }
 
-                    return field_k[var1][13];
+                    return message[iNPC][13];
                 } else if (var2 == 5) {
-                    if (field_p[var1] == 0) {
-                        return field_k[var1][18];
-                    } else if (field_h[var1] > 50) {
-                        return field_k[var1][1];
+                    if (field_p[iNPC] == 0) {
+                        return message[iNPC][18];
+                    } else if (field_h[iNPC] > 50) {
+                        return message[iNPC][1];
                     } else {
                         if (var0.field_U[8] > 50) {
-                            return field_k[var1][2];
+                            return message[iNPC][2];
                         }
 
-                        --field_p[var1];
+                        --field_p[iNPC];
                         return method_a5(var0, var3);
                     }
                 } else {
                     if (var2 == 6) {
-                        field_b[var1] = false;
+                        field_b[iNPC] = false;
                         class_i var7 = ESGame.field_u[0];
-                        var7.field_w[field_j[var1]][field_i[var1]] = DataTools.clearManyBits((byte)32, var7.field_w[field_j[var1]][field_i[var1]]);
-                        return field_k[var1][19];
+                        var7.field_w[field_j[iNPC]][field_i[iNPC]] = DataTools.clearManyBits((byte)32, var7.field_w[field_j[iNPC]][field_i[iNPC]]);
+                        return message[iNPC][19];
                     }
 
                     return null;
                 }
             case 4:
                 if (var2 == 1) {
-                    if (field_q[var1]) {
-                        field_q[var1] = false;
-                        return field_k[var1][0];
+                    if (field_q[iNPC]) {
+                        field_q[iNPC] = false;
+                        return message[iNPC][0];
                     }
 
                     return null;
@@ -314,24 +314,24 @@ public class class_k {
                     if (var17 != 13 && var17 != 15 && var17 != 17) {
                         ++field_a;
                         var0.method_y1(var3);
-                        return field_k[var1][2];
+                        return message[iNPC][2];
                     }
 
-                    return field_k[var1][1];
+                    return message[iNPC][1];
                 } else {
                     if (var2 == 7) {
                         if (field_a / 3 > 0) {
                             short var12 = class_a.method_a();
                             boolean var16 = var0.method_b6(var3, var12, 0);
                             if (!var16) {
-                                return field_k[7][0];
+                                return message[7][0];
                             }
 
                             field_a = (short)(field_a - 3);
-                            return field_k[var1][3];
+                            return message[iNPC][3];
                         }
 
-                        return field_k[var1][4];
+                        return message[iNPC][4];
                     }
 
                     return null;
@@ -339,40 +339,40 @@ public class class_k {
             case 5:
                 if (var2 == 1) {
                     System.out.println("Greeting Helga");
-                    if (field_q[var1]) {
+                    if (field_q[iNPC]) {
                         System.out.println("first meeting");
-                        field_q[var1] = false;
+                        field_q[iNPC] = false;
                         var0.field_Y = 0;
-                        System.out.println("message[iNPC] length is " + field_k[var1].length);
-                        System.out.println(field_k[var1][0]);
-                        System.out.println(field_k[var1][2]);
+                        System.out.println("message[iNPC] length is " + message[iNPC].length);
+                        System.out.println(message[iNPC][0]);
+                        System.out.println(message[iNPC][2]);
                         if (field_l) {
                             field_l = false;
-                            return field_k[5][21] + "\n" + field_k[var1][0] + "\n" + field_k[var1][2];
+                            return message[5][21] + "\n" + message[iNPC][0] + "\n" + message[iNPC][2];
                         }
 
-                        return field_k[var1][0] + "\n" + field_k[var1][2];
+                        return message[iNPC][0] + "\n" + message[iNPC][2];
                     } else {
                         int var4 = ESGame.getGameAdvancementLevel(var0.field_W);
                         if (var4 > var0.field_Y) {
                             ++var0.field_Y;
                             if (field_l) {
                                 field_l = false;
-                                return field_k[5][21] + "\n" + field_k[var1][2 + var0.field_Y];
+                                return message[5][21] + "\n" + message[iNPC][2 + var0.field_Y];
                             }
 
-                            return field_k[var1][2 + var0.field_Y];
+                            return message[iNPC][2 + var0.field_Y];
                         } else {
                             if (field_l) {
                                 field_l = false;
-                                return field_k[5][21];
+                                return message[5][21];
                             }
 
                             return null;
                         }
                     }
                 } else if (var2 == 13) {
-                    return field_k[var1][2 + var0.field_Y];
+                    return message[iNPC][2 + var0.field_Y];
                 } else if (var2 == 4) {
                     int var11 = Math.abs(var0.field_H[var3]);
                     if (class_a.method_a2(1, var11) == 13) {
@@ -384,60 +384,60 @@ public class class_k {
                         }
 
                         var0.method_y1(var3);
-                        return field_k[var1][11];
+                        return message[iNPC][11];
                     }
 
-                    return field_k[var1][12];
+                    return message[iNPC][12];
                 } else if (var2 == 8) {
                     if (field_g < 7) {
-                        return field_k[var1][1];
+                        return message[iNPC][1];
                     } else {
                         int var5 = Math.abs(var0.field_H[var3]);
                         if (class_a.method_b(var5) && !var0.method_j(var3)) {
                             field_g = (short)(field_g - 7);
                             var0.method_h2(var3);
-                            return field_k[var1][13];
+                            return message[iNPC][13];
                         }
 
-                        return field_k[var1][14];
+                        return message[iNPC][14];
                     }
                 } else if (var2 == 9) {
                     if (field_g < 2) {
-                        return field_k[var1][1];
+                        return message[iNPC][1];
                     } else {
                         if (var0.field_f) {
-                            return field_k[var1][15];
+                            return message[iNPC][15];
                         }
 
                         var0.field_f = true;
                         field_g = (short)(field_g - 2);
-                        return field_k[var1][16];
+                        return message[iNPC][16];
                     }
                 } else if (var2 == 10) {
                     if (field_g < 1) {
-                        return field_k[var1][1];
+                        return message[iNPC][1];
                     }
 
                     var0.field_A = 0;
                     --field_g;
-                    return field_k[var1][17];
+                    return message[iNPC][17];
                 } else if (var2 == 11) {
                     if (field_g < 1) {
-                        return field_k[var1][1];
+                        return message[iNPC][1];
                     } else {
                         if (!var0.method_x1()) {
-                            return field_k[var1][18];
+                            return message[iNPC][18];
                         }
 
                         --field_g;
                         var0.method_e1();
-                        return field_k[var1][19];
+                        return message[iNPC][19];
                     }
                 } else {
                     if (var2 == 12) {
                         var0.field_U[2] = var0.field_U[3];
                         var0.field_U[4] = var0.field_U[5];
-                        return field_k[var1][20];
+                        return message[iNPC][20];
                     }
 
                     return null;
@@ -447,17 +447,17 @@ public class class_k {
                     return null;
                 } else if (field_f == 1 && var0.field_m == 0) {
                     var0.field_m = 1;
-                    return field_k[var1][0];
+                    return message[iNPC][0];
                 } else if (field_f == 2 && var0.field_m <= 1) {
                     var0.field_m = 2;
-                    return field_k[var1][1];
+                    return message[iNPC][1];
                 } else if (field_f == 3 && var0.field_m <= 2) {
                     var0.field_m = 3;
-                    return field_k[var1][2];
+                    return message[iNPC][2];
                 } else {
                     if (field_f == 4 && var0.field_m <= 3) {
                         var0.field_m = 4;
-                        return field_k[var1][3] + "\n" + field_k[var1][4];
+                        return message[iNPC][3] + "\n" + message[iNPC][4];
                     }
 
                     return null;
